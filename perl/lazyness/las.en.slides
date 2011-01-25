@@ -1,0 +1,216 @@
+  Doug Mc Ilroy
+
+     inventor of unix pipe
+     3 principles
+	 Write programs to work together.
+	 Write programs to handle text streams,
+	  because that is a universal interface.
+	 Write programs that do one thing and do it well
+     is my hero, he should be yours
+
+
+  yes
+
+     simple problem
+     generate infinite stream
+     can be very helpfull
+     KISS (don't deal with args)
+
+    say "y" while 1 
+
+
+  Pipes: on demand operator
+      example
+
+    getent passwd               |
+	grep -E ':[^:]+/false$' |
+	cut  -d: -f1
+
+      code reuse
+
+    grep_false_user {
+	grep -E ':[^:]+/false$'
+    }
+
+    passwd_login { cut -d: -f1 }
+
+    get_false_users_login {
+	grep_false_user |
+	    passwd_login
+    }
+
+    ls_false_logins () {
+	getent passwd |
+	    get_false_users_login
+    }
+
+    
+      moar ...
+
+	getent passwd       |
+	    grep_false_user |
+	    sed 10
+
+	getent passwd       |
+	    sed 10          |
+	    grep_false_user
+
+    
+    
+      generators
+
+     generate steam
+	 maybe infinite
+     record by record
+	 often lines
+     on demand only
+
+    
+      filters
+
+     read an incoming stream
+	 record by record
+     update a copy
+     write it (new stream)
+
+     so 
+	 nothing to carre but your record
+	 makes no assumption on stream size
+	 don't have to reach incoming EOF
+
+    
+      example:  sed (stream editor)
+
+    # stops writing string after line 5 
+    sed 5q
+
+    # replace foo by bar in the line contents 
+    sed s/foo/bar/ 
+
+    # remove lines containing "foo" from the steam
+    sed /foo/d
+
+    # g/re/p: keep only lines with "foo"
+    sed -n /foo/d
+
+    
+  composition
+      principes
+
+    ✓ Generator | Filter         => Generator
+    ✓ Filter    | Filter         => Filter
+
+    
+
+  Lazyness
+
+     On demand
+     Memoization
+     type Lazy a =
+	IORef (Either (() -> a) a)
+     IO monad in Unix shell
+    http://okmij.org/ftp/Computation/monadic-shell.html
+
+
+  implement gimme5
+      shell
+
+	yes | sed 5q
+
+    
+      haskell
+
+	yes  = "yes":yes
+	main = mapM putStrLn (take 5 yes)
+
+    
+
+  Perl
+      I can haz generator ?
+
+	my $yes = sub { "yes" }
+
+	sub yes {
+	    sub { "yes" }
+	}
+
+	my $counter = do {
+	    my $step = 1; 
+	    sub { $step++ }
+	}
+
+    
+      I can haz filters ?
+
+	my $oui_oui = yes;
+
+	for (1..5) {
+	    say $oui_oui->()
+	}
+
+    
+      for ?
+
+	 breaks stream logic
+	 burns my eyes
+
+    
+      grep, map ?
+
+	 arrays, not closures
+	 no lazyness, so no infinity
+	 fallback to imperative
+	  to solve many problems
+	 ranges are lazy
+	     say for 1..10
+	 what about this line ?
+	    grep { /foo/ } <$bar>
+
+    
+      on demand comes with closures
+
+     closures are also first class citizen
+     generators are closures
+     filters must be closures
+	 taking closures as arguments
+	 returning closures 
+
+    
+      use Lazyness
+
+	 keywords from haskell prelude
+	 ( take, drop, filter, ... )
+
+	sub sed10q { take 10, shift }
+
+	 fold folds stream into array
+
+	say for fold sed10q sub { "yes" }
+
+    
+      the conway example
+
+	lazyness_and_univers_exansion.pl 
+
+    
+      Known bug
+
+	 takeWhile implementation
+	     goes one step too far
+	     can't fix it ...
+
+    
+      fix it ?
+
+	 add a container (Stream)
+	 overload the Stream | operator 
+	 can't figure out a coherent set of rules
+	 gave up for now
+
+    
+      questions ? 
+
+	 thank you
+
+    
+

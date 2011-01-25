@@ -1,0 +1,218 @@
+  Doug Mc Ilroy
+
+     inventor du pipe unix
+     écrire des programmes reposant sur 
+      3 principes
+	 ils travaillent ensemble
+	 ils gerent des flux de textes
+	  (le texte est une interface universelle)
+	 ils font une seule chose mais la font bien
+     il est un de mes heros, bientôt un des votres
+
+
+  yes
+
+     probleme simple 
+     genere un flux infini
+     peut s'averer tres utile
+     KISS
+
+    say "y" while 1 
+
+
+  Pipes: operateur "on demand"
+      example
+
+    getent passwd               |
+	grep -E ':[^:]+/false$' |
+	cut  -d: -f1
+
+      code reuse
+
+    grep_false_user {
+	grep -E ':[^:]+/false$'
+    }
+
+    passwd_login { cut -d: -f1 }
+
+    get_false_users_login {
+	grep_false_user |
+	    passwd_login
+    }
+
+    ls_false_logins () {
+	getent passwd |
+	    get_false_users_login
+    }
+
+    
+      moar ...
+
+	getent passwd       |
+	    grep_false_user |
+	    seq 10
+
+	getent passwd       |
+	    seq 10          |
+	    grep_false_user
+
+    
+    
+      generators
+
+     genere un flux
+	 eventuellement infini
+     enregistrement par enregistrement
+	 souvent des lignes
+     seulement a la demande
+
+    
+      filters
+
+     lis
+	 enregistrement par enregistrement
+     modifie la copie
+     l'écrit (crée un nouveau flux)
+
+     on se concentre sur l'enregistrement 
+	 ne présume rien sur la taille du flux 
+	 aucune obligation de lire tout le flux
+
+    
+      example:  sed (stream editor)
+
+    # affiche 5 lignes du flux entrant
+    sed 5q
+
+    # replace foo par bar dans le flux
+    sed s/foo/bar/ 
+
+    # ne rend pas les lignes contenant foo
+    sed /foo/d
+
+    # ne rend que les lignes contenant foo 
+
+    sed -n /foo/d
+
+    
+  composition
+      principes
+
+    ✓ Generator | Filter         => Generator
+    ✓ Filter    | Filter         => Filter
+
+    
+
+  Lazyness
+
+     On demand
+     Memoization
+     type Lazy a =
+	IORef (Either (() -> a) a)
+     IO monad in Unix shell
+    http://okmij.org/ftp/Computation/monadic-shell.html
+
+
+  implement gimme5
+      shell
+
+	yes | head -n5 
+
+    
+      haskell
+
+	yes  = "yes":yes
+	main = mapM putStrLn (take 5 yes)
+
+    
+
+  Perl
+      I can haz generator ?
+
+	my $yes = sub { "yes" }
+
+	sub yes {
+	    sub { "yes" }
+	}
+
+	my $counter = do {
+	    my $step = 1; 
+	    sub { $step++ }
+	}
+
+    
+      I can haz filters ?
+
+	my $oui_oui = yes;
+
+	for (1..5) {
+	    $oui_oui->()
+	}
+
+    
+      for ?
+
+	 casse la logique de stream
+	 brule mes yeux
+
+    
+      grep, map ?
+
+	 des tableaux, pas des closures
+	 plus de lazyness
+	 retour vers les solutions
+	  imperatives
+	 les ranges sont lazy
+	     say for 1..10
+	 mais ca ? 
+	    grep { /foo/ } <$bar>
+
+    
+      le comportement a la demande
+
+     est possible grace aux closures
+	 qui sont des "first class citizen"
+     les generateurs sont des closures
+     les filtres sont donc des fonctions qui 
+	 prennent des closures
+	 retournent closures 
+
+    
+      use Lazyness
+
+	 mots-clefs du prélude haskell
+	 ( take, drop, filter, ... )
+
+	sub seq10q { take 10, shift }
+
+	 fold deplie un flux dans un tableau
+
+	say for fold seq10q sub { "yes" }
+
+    
+      the conway example
+
+	lazyness_and_univers_exansion.pl 
+
+    
+      Known bug
+
+	 takeWhile implementation
+	     goes one step too far
+	     can't fix it ...
+
+    
+      fix it ?
+
+	 add a container (Stream)
+	 overload the Stream | operator 
+	 can't figure out a coherent set of rules
+	 gave up for now
+
+    
+      questions ? 
+
+	 thank you
+
+    
+

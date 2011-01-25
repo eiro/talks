@@ -1,0 +1,90 @@
+  Un peu de poésie
+
+     perl oneliners
+     man perlrun
+     remplace les filtres unix traditionnels
+	 biennnn plus puissants 
+	 biennnn plus gourmands 
+     quand le script commence a grossir
+	 inversez la tendance
+	 use Shell, qx, IPC::* 
+	 http://github.com/book/System-Command
+     use warnings: -w 
+
+
+  -e, -E et -M , %INC et @INC 
+
+    perl -e 'print "hello\n"'
+    perl -E '/[^.]/ and say for @INC' # 5.10
+
+    perl -MScalar::Util -E 'say $INC{"Scalar/Util.pm"}'
+    /usr/lib/perl/5.10/Scalar/Util.pm
+
+    perl -MList::Utils=any '
+	say "local used" if
+	    any { m(/local/) }
+	    values %INC
+    '
+
+
+  comme sed ( -p et -n )
+
+    $_   | contenu de la ligne
+    $.   | numero de la ligne
+
+    perl -pE              # sed
+	perl -pE 's/foo/bar/'
+
+    perl -nE              # sed -n 
+	perl -nE 'print if /toto/'
+
+    flip flop: 
+	perl -nE '/hp/..43 and say "$. $_"'
+
+ comme awk ( -a )
+  comme awk ( -a et -F, BEGIN et END )
+
+    -a  autosplit dans @F
+    -F  definit le separateur
+    BEGIN est executé avant la premiere ligne
+    END   apres la derniere
+
+    getent_html.sh
+    getent_html.pl
+
+
+  -CSD 
+
+    I     1   STDIN is assumed to be in UTF-8
+    O     2   STDOUT will be in UTF-8
+    E     4   STDERR will be in UTF-8
+    S     7   I + O + E
+    i     8   UTF-8 is the default PerlIO layer for input streams
+    o    16   UTF-8 is the default PerlIO layer for output streams
+    D    24   i + o
+
+    use utf8;
+    use open qw/ :std :utf8 /;
+
+
+  -0 pour modifier $/ (record separator)
+      file slurp 
+
+	-0    # undef $/ 
+
+    
+      iso2709 examples
+
+    perl -0x1d -nE 'END { say "$. notices" }' biblio.iso2709
+
+    perl -0x1d -nE '
+	10../plan9/ and print
+    ' biblio.iso2709
+
+    perl -MMARC::Record -0x1d -nE '
+	/Art of/ and say
+	( MARC::Record-> new( $_ )-> as_formatted )
+    '
+
+    
+

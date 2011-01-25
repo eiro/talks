@@ -1,0 +1,88 @@
+  shell scripting
+
+     interactivité
+	 taches quotidiennes 
+	 side effects sur l'environement
+     glue 'n' globbing
+     eviter les structures complexes
+
+
+  interpreteurs
+
+     Bourne, Korn, C, rc
+     Csh Programming Considered Harmful
+     Posix, Portabilité et marmottes ... 
+     Bash par defaut? mksh, dash, zsh ... 
+
+
+  zsh
+
+     pique les bonnes idées
+     ose abandonner les mauvaises
+     en ajoute de nouvelles
+
+
+  prerequis
+
+     bases de shell
+     curiosité
+
+
+  expansions
+
+     glob: file expansion
+	 zsh glob >>> posix
+     brace: factorisation
+	rm /var/log/mail/error.log \
+	   /var/log/mail/info.log 
+	⇒
+	rm /var/log/mail/{error,info}.log 
+
+
+  factoriser: brace
+
+
+  les scalaires
+
+     $ a l'interpolation
+     pas de $ a l'affectation
+     prefixe les commandes
+     protection avec ', " et \
+
+    a=12 b=34
+    IFS=\; read x y <<< "34;62"
+    print "$a $b $x $y"
+
+
+  tableaux
+
+     tableaux.zsh
+     associatifs.zsh
+     tie
+
+
+
+
+  syntaxe simple
+
+     valeur de retour = ERRNO
+	0 < x < 255
+     
+	0 < x < 255
+
+
+
+  contextes
+
+     test
+	[[ -d /etc ]]
+	[[ $USER == *www* ]]
+     math
+     current shell
+	{ print $file: ; cat $file } > foo
+     subshell
+	xp
+	( xp=12; print ) 
+
+
+

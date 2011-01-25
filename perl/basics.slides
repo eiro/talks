@@ -1,0 +1,489 @@
+      la doc
+	 la doc (man perl, http://perldoc.perl.org)
+	    perl*tut, perlop, perlsyn, perlre, perldelta
+	 les mongueurs: http://mongueurs.net/
+	    liste d'entre-aide, tutos, ...
+	 les conferences
+	    fpw, osdc.fr, yapc, ...
+    
+  la vérité, si je mens
+      faux!  
+	 undef
+	 '', (), 0
+	 tout le reste est vrai
+    
+      les operateurs de comparaison
+
+	 eq
+	 ==
+	 =~ s/// ou m//
+	 Smart match (~~) (perlsyn)
+
+    
+      les operateurs logiques 
+
+	  priorité     
+	forte | faible | cryptique 
+	------+--------+----------
+	 ||   |   or   |   ||=
+	------+--------+----------
+	 &&   |  and   |   &&=
+	------+--------+----------
+	 //   |err/dor |   -
+	------+--------+----------
+
+    
+      priorité
+
+	my $x = $y || $3 or warn "aie"
+	=>
+	if ( my $x = $y || $3 ) { or warn "aie" }
+
+    
+      tester sur $user{ age }
+
+	 exists     # la clef
+	 defined    
+	 $_         # 0 est faux
+	 length     # 0 est vrai 
+	 @{ $user{notes} }
+
+    
+
+      les bouquins
+
+     introduction a perl
+	 tres orienté Babyperl ...
+	 démarrage trèèèèès doux 
+     advanced perl programming
+	 2nd: tres bas niveau ( *, references )
+	 3rd: bon exemples
+     Perl Best Practices
+	 parties outdated par Modern::Perl
+	 mais d'autres font référence
+	     présentation et nommage
+	     BP des regexps 
+     Perl moderne ? pas lu ... mais ...
+	 les auteurs talentueux et bonnes reviews
+	 Perl -> ( Modern::Perl -> Perl6 ) 
+    
+      references, tout ca ...
+  love, love me *do*
+
+     my $x  =
+	42; 
+	do { 42 };
+
+     my $xr =
+	$x;
+	\ do { 42 };
+
+
+  ternaire
+
+    my $type
+    = $ENV{USER} ~~ [qw/ root r00t /] ? 'ADM'
+    : $ENV{USER} ~~ / ^ adm  /x       ? 'STAFF'
+    : 'USERS' ; 
+
+    my $type = do
+    { $ENV{USER} ~~ [qw/ root r00t /] ? 'ADM'
+    : $ENV{USER} ~~ / ^ adm  /x       ? 'STAFF'
+    : 'USERS'
+    }; 
+
+
+  retours et affectations
+
+    my $type;
+    if    ( $ENV{USER} ~~ [qw/ root r00t /] ) { $type = 'ADM'   }
+    elsif ( $ENV{USER} ~~ / ^ adm  /x    )    { $type = 'STAFF' }
+    else                                      { $type = 'USERS' }
+
+    my $type = do {
+	if    ( $ENV{USER} ~~ [qw/ root r00t /] ) { 'ADM'   }
+	elsif ( $ENV{USER} ~~ / ^ adm  /x    )    { 'STAFF' }
+	else                                      { 'USERS' }
+    }; 
+
+    # perl 5.12 
+    my $type = do {
+	given ($ENV{USER}) {
+	    when ( [qw/ root r00t /] ) { 'ADM'   }
+	    when ( / ^ adm  /x       ) { 'STAFF' }
+	    default                    { 'USERS' }
+	}
+    }; 
+
+
+  map
+      declaratif vs imperatif
+
+	my @a = 1..5;
+	my @b;
+	for my $x ( @a ) { push @b, $x * 2 }
+
+	my @a = 1..5;
+	my @b = map { $_ * 2 } @a;
+
+    
+      retenir que
+      map est side-effect 
+	 @a est modifié 
+	    @b = map { $_*= 2 } @a; 
+
+	 @a n'est pas modifié
+	    @b = map { $_ * 2 } @a; 
+    
+      map renvoie un tableau
+
+	 intercaler un 1 entre tous les élements 
+	    @b = map { $_ , 1 } @a; 
+	 filtrer
+	    @b = map { $_ > 23 ? () : $_*2 } @a; 
+
+    
+    
+      la substitution: tricky
+
+	@b = map { s/foo/bar/ } @a
+	 modifie @a
+	 @b contient des booléens
+
+    
+      la substitution: soluc.
+
+	# perl 5.14 
+	@b = map { s/foo/bar/r } @a
+
+	# avant ... 
+	@b = map {
+	    my $e = $_;
+	    $e =~ s/foo/bar/;
+	    $e;
+	} @a
+
+    
+      $_ est local 
+	@b = map {
+	    $_ => [ map { $_ || 'MISSING' } split ':' ]
+	} qw/ toto:tata::tutu toto:tata /
+
+	 $_ et $_ ne sont pas les memes 
+    
+      faciliter la lecture
+
+	sub split_and_fill
+	{ map { $_ || 'MISSING' } split ':' }
+	
+	@b = map { $_ => split_and_fill }
+	    qw/ toto:tata::tutu toto:tata /
+
+    
+
+  les parentheses
+      sont souvent optionnelles
+
+	 et alourdissent le code
+	 servent à définir
+	     les priorités
+	     un contexte de tableau 
+		 my $user_count   = @users
+		 my ($first_user) = @users
+	 lisez PBP
+	 experimentez
+
+    
+      exemples typiques
+
+	push( @a, ( $a, $b, $c ) );
+	if ($user->is_logged()) { return( $x ) }
+
+	push @a, $a, $b, $c; 
+	return $x if $user->is_logged;
+
+	# PBP: espacez! 
+
+    
+
+  par valeur, pas par référence
+      my ( $a, $b, $c ) = 1..3;
+
+	 my ( $a, $b, $c ) =
+	     ( 1 , 2 , 3  )
+
+	 my $a = 1
+	  my $b = 2
+	  my $c = 3 
+
+    
+      my ( $a, $b, $c, $d ) = 1..3;
+
+	 my ( $a , $b , $c , $d ) =
+	     ( 1  , 2  , 3  , undef )
+
+	 my $a = 1
+	  my $b = 2
+	  my $c = 3 
+
+    
+      my ( $a, $b, $c )
+
+	my ( $a   , $b   , $c    ) =
+	   ( undef, undef, undef )
+
+    
+      my ( $a, $b, $c ) = 'a'..'e'
+
+	my ( $a, $b, $c ) =
+	qw/  a   b   c   d   e /;
+
+    
+      my @a = @b
+
+	( $a[0], $a[1], ... , $a[$#a] ) =
+	( $b[0], $b[1], ... , $b[$#a] )
+
+    
+      my @a = ( @b, @c )
+
+	my @b = qw/ 1 2 /;
+	my @c = qw/ a b /;
+	my @a = ( @b, @c )
+	 @a = qw/ 1 2 a b /;
+
+    
+      my @a = ( \@b, \@c )
+
+	( [qw/ 1 2 /]
+	, [qw/ a b /]
+	)
+
+    
+      subscripts
+
+	@a[1..3] = @b[7..9]
+	push @a, @b[@c]
+
+	exo: my @a; @a[2..5] = qw/ a b /; ? 
+
+    
+      tableaux comme des piles 
+
+	@a = qw/ a b /    # qw/ a b     /
+	push @a,qw/ c d / # qw/ a b c d / 
+	say shift @a;     # qw/ b c d   /
+	=> a 
+	say pop @a;       # qw/ b c     /
+	=> c  
+
+	@a = reverse 'a'..'z' # qw/ z y x ....
+
+    
+      changement de contexte
+
+	 my ($first_user) = @users
+
+	 @ -> $  : le comptage
+	     my $user_count   = @users
+
+	 -> Bool : presence d'éléments
+	     say "hello" if @users
+
+    
+  hash -> array -> hash
+
+      %user = qw/ nom Chantreux prenom marc /;
+      @user = %user;
+
+  parametres par defaut
+
+    my %value_of =
+    ( qw/
+	login jdoe
+	firstname John
+	lastname  Doe
+    / , @_ )
+
+
+
+  hash slices
+
+    my %user;
+
+    ( $user{login}, $user{nom}, $user{prenom} )
+    = split ':', $raw;
+
+    @user{qw/ login nom prenom /} = 
+    = split ':', $raw;
+
+
+  hash slices et références
+
+     @{ $$eleve_de{cp} }
+     @{ $$eleve_de{cp}[0] }{qw/ nom prenom date_naissance /}
+
+
+
+    
+  les namespaces
+
+     organiser variables et fonctions 
+	 repertoires, OUI, netid, ...
+     :: comme separateur
+
+      $x dans 2 NS
+
+	    package Foo;
+	    my $x;      # $Foo::x
+	    my $Bar::x = $x;
+
+    
+      NS par defaut et courant 
+
+    # nous sommes dans main::
+    package Foo;
+
+    # nous sommes dans Foo::
+    package main;
+
+    # nous sommes dans main::
+    
+      incursion rapide dans un autre NS
+
+	# nous sommes dans main::
+
+	{ package Foo;
+	# nous sommes dans Foo::
+	}
+
+	# nous sommes dans main::
+    
+      export, introspection, metaprgramming, ...
+
+	 tous les symboles du package
+	  main sont dans le hash %main::
+	 un namespace est une classe
+
+	=> 
+
+	 Exporter, base, parent ...
+	 Heritage (@ISA), Class::MOP
+	  => OO, Moose, ... 
+
+    
+
+  regexps
+      apprendre 
+     assez proches de pcre
+     lecture abondante
+	 PBP
+	 Mastering regular expressions
+     slides de Sébastien "Maddingue" Aperghis-Tramoni
+	http://maddingue.free.fr/conferences/
+    
+      a retenir ?
+
+	 lire PBP et utiliser //xms
+	 ARTUNG! m// != qr//
+	 m// renvoie un tableau
+	 split utilise ce tableau
+
+	  split /, *(\S+: )/, "foo: bar, bang: pouet"
+
+	     ( undef,qw/ foo bar bang pouet /) 
+
+	
+
+    
+      pour etre sur
+
+    say for
+    /^(?:my|our|your) +(\w+) +has +(no|\d{1,3})? +(.*?) +[!]/x
+
+    
+      pour etre propre (PBP)
+
+	# your sister haz cookies ? 
+	say for /
+	    # start with
+	    ^ ( # a member of one of our famillies 
+		(?: my | our | your ) \s+
+		(?: \w+ )
+	    ) \s+
+	    
+	    # has no, has 12 ...
+	    has \s+ ( no | \d{1,3} )? \s+
+
+	    # cookies ? boats ? 
+	    (.*?) \s+ [!]? /x
+	/x
+
+    
+
+  pour une notation préfixée
+
+     besoin d'espace pour respirer
+     préfixer plutot qu'indenter
+	 lisible ... question d'habitude
+	 gagne 1 niveau d'indent
+	 plus simple a éditer
+	 moins d'erreurs
+
+      lecture 
+      avant
+
+	my $result = fonction("avec&\" , plein d,'arguements' ","et ici la suite");
+
+    
+      apres
+
+	my $result = fonction
+	( "avec&\" , plein d,'arguements' "
+	, "et ici la suite"
+	);
+
+    
+    
+      debug
+      avant
+
+    my %x = (
+	-name             => 'Watson'
+	-age              => 42 
+	-description      => 'backup supply'
+	-oui              => 234325356433545654346
+    ); 
+
+    
+      apres
+
+	my %x =
+	( -name             => 'Watson'
+	-age              => 42 
+	, -description      => 'backup supply'
+	, -oui              => 234325356433545654346
+	); 
+
+    
+    
+
+
+  atelier lecture 
+
+      V.
+
+	my @a = 'a'..'z';
+	for (0..$#a) {
+	    say "@a";
+	    push @a, shift @a;
+	}
+
+    
+      heaven and hell ...
+
+	 exos_lectures.pl
+
+    
+
+

@@ -1,0 +1,8 @@
+  put it all together: passer supelec en prod.
+
+    ( u supelec; kmd ) |
+	ssh supelec "
+	    mysqldump koha > $( date +%F ).sql && mysql
+	"
+
+

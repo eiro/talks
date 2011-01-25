@@ -1,0 +1,78 @@
+  Interpolation de variables (Expansion)
+      Utilisation *explicite* de l'IFS
+	  différence
+
+	x="a b c"
+	for e in ...
+                          | korn | zsh
+	------------------+------+------
+	"$x"              |  1   |  1
+	------------------+------+------
+	$x                |  3   |  1 
+	------------------+------+------
+	$=x               |  X   |  3 
+	------------------+------+------
+	$( echo a b c )   |  3   |  3
+	------------------+------+------
+	"$( echo a b c )" |  1   |  1
+	------------------+------+------
+
+	
+	  bénéfices
+
+	     appeller un chat un chat
+		 "" chaine interpolée
+		 '' chaine protégée
+		 << heredoc
+		 () pour un tableau
+
+	     simplifie la protection des quotes
+
+	
+    
+      Expansion flags (man zshexpn)
+
+	 modifie l'interpolation
+	 syntaxe ${(modifiers)name}
+	 exemple:
+
+	  codes=" a B c"
+	  for c ( ${(s,:,)codes} )  print ${(U)c
+	  for c ( ${(Us,:,)codes} ) print $c
+
+    
+      nested expansion
+
+      l'idée générale
+
+	$exp1 => ${exp1}
+	# cf. slides sur korn shell 
+
+	et en zsh ... 
+
+	    => ${${exp1}}
+	    => ${${${exp1}}}
+	    => ${${${${exp1}}}}
+	    => ${${${${${exp1}}}}}
+	    => ...
+    
+      chaque niveau peut 
+
+	 utiliser la syntaxe complete de de variables
+	     parameter expansions korn 
+	     parameter flags zsh
+	 meme en cas de convertion
+
+    
+
+
+    # eiro:x:1000:1000:Marc Chantreux,,,:/home/eiro:/bin/zsh
+    rawant="$( getent passwd eiro )"
+    pw_ent=( ${(s,:,)rawant} ) 
+    homedir=$pw_ent[6]
+    # /home/eiro
+
+    ${${(s,:,)${"$( getent passwd mc )"}}[6]}
+
+    
+

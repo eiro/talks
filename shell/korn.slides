@@ -1,0 +1,66 @@
+  normes et implementations
+
+    je suis pas tres sur mais ...
+
+      normes
+     89
+	 modernisation de bourne
+	 defaut sur de nombreux unices commerciaux
+	 premiere implémentation: bash
+     93
+	 plus ambitieux
+	 n'a pas rencontré de succès ? 
+    
+      implementations
+     fournis avec les unices proprios
+     pdksh
+     mksh
+    
+
+  Parameter expansions et les braces
+      borner le nom de la variable
+
+	to=play
+	✗ $tomate    => ""
+	✓ ${to}mate  => "playmate"
+
+	foo=( a b c ) 
+	✗ $foo[2]    => a[2]
+	✓ ${foo[2]}  => c
+
+    
+      modifiers
+
+    permet des operations simples sur les chaines
+	  valeur par defaut
+	  erreur si unset
+	  substitutions 
+	  ...  ( man mksh "Parameter expansion" )
+
+	  syntaxe
+
+	  '${' varident modifier arguments '}'
+	  modifiers: symbols+
+
+	    #   | suppression non-avide de la tête 
+	    ##  | suppression avide de la tête
+	    :-  | valeur par defaut
+	    :?  | erreur si unset 
+	    %   | suppression non-avide de la queue 
+	    %%  | suppression avide de la queue 
+
+	
+	  Exemple: homedir
+
+	    # mc:x:1000:1000:Marc Chantreux,,,:/home/mc:/bin/zsh
+	    homedir=$( getent passwd mc | cut -d: -f 6 ) 
+
+	    pwd_ent=$( getent passwd mc )
+	    homedir=${pwd_ent%:*}  # vire login shell
+	    homedir=${homedir##*:} # vire le debut
+	    print $homedir
+
+	
+    
+
+
