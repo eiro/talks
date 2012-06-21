@@ -1,1 +1,16 @@
-various talks i gave about perl, zsh, ksh, c , ...
+I gave a lot of talks in many places and companies about perl, zsh, ksh, c, ...
+
+sadly, i lost most of them. This repo will is now my base for those materials.
+
+MISSING SLIDES (those i remember)
+
+12/fosdem    : Brusels   : Perlude
+11/bpw       : Brusels   : Perlude
+11/gpw       : Frankfurt : Perlude
+11/paris.pm  : Paris     : Perlude
+11/lpw       : London    : Perlude              : Canceled
+11/fosdem    : London    : Haskell with no fear : Canceled
+11/yapc::eu  : Riga      : Perlude
+11/fpw       : Paris     : Perlude
+11/osdc.fr   : Paris     : Perlude
+09/fpw       : Paris     : zsh
