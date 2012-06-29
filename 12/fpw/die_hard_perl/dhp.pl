@@ -1,6 +1,6 @@
 =head1 run this talk
 
-    revealer talk.pl > ~/www/reveal.js/talk.html
+    revealer 12/fpw/die_hard_perl/talk.pl > ~/www/reveal.js/talk.html
 
 =cut 
 
@@ -12,7 +12,7 @@ reveal {
             , p{"Strasbourg, 29-30 juin"}
             , img 'logo_mongueurs.png'
     }
-    , S { "i ♡ perl" , FP "45mn"
+    , S { "i $love perl" , FP "45mn"
          , "non exhaustif"
          , "les choses à savoir"
          , "les bonnes pratiques"
