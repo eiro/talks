@@ -1,10 +1,10 @@
-  glob
+› glob
 
      recherche de fichiers
      effectuée par le shell
-	 zsh != posix fnmatch
-	 taille de argv importante
-     passées aux 
-     brace, glob, ... 
+     zsh != posix fnmatch
+     taille de argv importante
+     passées aux
+     brace, glob, ...
 
-
+

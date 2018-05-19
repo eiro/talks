@@ -1,218 +1,219 @@
-  Doug Mc Ilroy
+› Doug Mc Ilroy
 
      inventor du pipe unix
-     écrire des programmes reposant sur 
+     écrire des programmes reposant sur
       3 principes
-	 ils travaillent ensemble
-	 ils gerent des flux de textes
-	  (le texte est une interface universelle)
-	 ils font une seule chose mais la font bien
+     ils travaillent ensemble
+     ils gerent des flux de textes
+      (le texte est une interface universelle)
+     ils font une seule chose mais la font bien
      il est un de mes heros, bientôt un des votres
 
-
-  yes
 
-     probleme simple 
+› yes
+
+     probleme simple
      genere un flux infini
      peut s'averer tres utile
      KISS
 
-    say "y" while 1 
+    say "y" while 1
 
-
-  Pipes: operateur "on demand"
-      example
+› Pipes: operateur "on demand"
+
+    › example
 
     getent passwd               |
-	grep -E ':[^:]+/false$' |
-	cut  -d: -f1
+    grep -E ':[^:]+/false$' |
+    cut  -d: -f1
 
-      code reuse
+    › code reuse
 
     grep_false_user {
-	grep -E ':[^:]+/false$'
+    grep -E ':[^:]+/false$'
     }
 
     passwd_login { cut -d: -f1 }
 
     get_false_users_login {
-	grep_false_user |
-	    passwd_login
+    grep_false_user |
+        passwd_login
     }
 
     ls_false_logins () {
-	getent passwd |
-	    get_false_users_login
+    getent passwd |
+        get_false_users_login
     }
 
-    
-      moar ...
 
-	getent passwd       |
-	    grep_false_user |
-	    seq 10
+    › moar ...
 
-	getent passwd       |
-	    seq 10          |
-	    grep_false_user
+    getent passwd       |
+        grep_false_user |
+        seq 10
 
-    
-    
-      generators
+    getent passwd       |
+        seq 10          |
+        grep_false_user
+
+
+
+    › generators
 
      genere un flux
-	 eventuellement infini
+     eventuellement infini
      enregistrement par enregistrement
-	 souvent des lignes
+     souvent des lignes
      seulement a la demande
 
-    
-      filters
+
+    › filters
 
      lis
-	 enregistrement par enregistrement
+     enregistrement par enregistrement
      modifie la copie
      l'écrit (crée un nouveau flux)
 
-     on se concentre sur l'enregistrement 
-	 ne présume rien sur la taille du flux 
-	 aucune obligation de lire tout le flux
+     on se concentre sur l'enregistrement
+     ne présume rien sur la taille du flux
+     aucune obligation de lire tout le flux
 
-    
-      example:  sed (stream editor)
+
+    › example:  sed (stream editor)
 
     # affiche 5 lignes du flux entrant
     sed 5q
 
     # replace foo par bar dans le flux
-    sed s/foo/bar/ 
+    sed s/foo/bar/
 
     # ne rend pas les lignes contenant foo
     sed /foo/d
 
-    # ne rend que les lignes contenant foo 
+    # ne rend que les lignes contenant foo
 
     sed -n /foo/d
 
-    
-  composition
-      principes
+
+› composition
+
+    › principes
 
     ✓ Generator | Filter         => Generator
     ✓ Filter    | Filter         => Filter
 
-    
-
-  Lazyness
+
+
+› Lazyness
 
      On demand
      Memoization
      type Lazy a =
-	IORef (Either (() -> a) a)
+    IORef (Either (() -> a) a)
      IO monad in Unix shell
     http://okmij.org/ftp/Computation/monadic-shell.html
 
-
-  implement gimme5
-      shell
 
-	yes | head -n5 
+› implement gimme5
 
-    
-      haskell
+    › shell
 
-	yes  = "yes":yes
-	main = mapM putStrLn (take 5 yes)
+    yes | head -n5
 
-    
-
-  Perl
-      I can haz generator ?
 
-	my $yes = sub { "yes" }
+    › haskell
 
-	sub yes {
-	    sub { "yes" }
-	}
+    yes  = "yes":yes
+    main = mapM putStrLn (take 5 yes)
 
-	my $counter = do {
-	    my $step = 1; 
-	    sub { $step++ }
-	}
 
-    
-      I can haz filters ?
 
-	my $oui_oui = yes;
+› Perl
 
-	for (1..5) {
-	    $oui_oui->()
-	}
+    › I can haz generator ?
 
-    
-      for ?
+    my $yes = sub { "yes" }
 
-	 casse la logique de stream
-	 brule mes yeux
+    sub yes {
+        sub { "yes" }
+    }
 
-    
-      grep, map ?
+    my $counter = do {
+        my $step = 1;
+        sub { $step++ }
+    }
 
-	 des tableaux, pas des closures
-	 plus de lazyness
-	 retour vers les solutions
-	  imperatives
-	 les ranges sont lazy
-	     say for 1..10
-	 mais ca ? 
-	    grep { /foo/ } <$bar>
 
-    
-      le comportement a la demande
+    › I can haz filters ?
+
+    my $oui_oui = yes;
+
+    for (1..5) {
+        $oui_oui->()
+    }
+
+
+    › for ?
+
+     casse la logique de stream
+     brule mes yeux
+
+
+    › grep, map ?
+
+     des tableaux, pas des closures
+     plus de lazyness
+     retour vers les solutions
+      imperatives
+     les ranges sont lazy
+         say for 1..10
+     mais ca ?
+        grep { /foo/ } <$bar>
+
+
+    › le comportement a la demande
 
      est possible grace aux closures
-	 qui sont des "first class citizen"
+     qui sont des "first class citizen"
      les generateurs sont des closures
-     les filtres sont donc des fonctions qui 
-	 prennent des closures
-	 retournent closures 
+     les filtres sont donc des fonctions qui
+     prennent des closures
+     retournent closures
 
-    
-      use Lazyness
 
-	 mots-clefs du prélude haskell
-	 ( take, drop, filter, ... )
+    › use Lazyness
 
-	sub seq10q { take 10, shift }
+     mots-clefs du prélude haskell
+     ( take, drop, filter, ... )
 
-	 fold deplie un flux dans un tableau
+    sub seq10q { take 10, shift }
 
-	say for fold seq10q sub { "yes" }
+     fold deplie un flux dans un tableau
 
-    
-      the conway example
+    say for fold seq10q sub { "yes" }
 
-	lazyness_and_univers_exansion.pl 
 
-    
-      Known bug
+    › the conway example
 
-	 takeWhile implementation
-	     goes one step too far
-	     can't fix it ...
+    lazyness_and_univers_exansion.pl
 
-    
-      fix it ?
 
-	 add a container (Stream)
-	 overload the Stream | operator 
-	 can't figure out a coherent set of rules
-	 gave up for now
+    › Known bug
 
-    
-      questions ? 
+     takeWhile implementation
+         goes one step too far
+         can't fix it ...
 
-	 thank you
 
-    
-
+    › fix it ?
+
+     add a container (Stream)
+     overload the Stream | operator
+     can't figure out a coherent set of rules
+     gave up for now
+
+
+    › questions ?
+
+     thank you
+

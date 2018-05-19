@@ -1,48 +1,48 @@
-  shell scripting
+› shell scripting
 
      interactivité
-	 taches quotidiennes 
+	 taches quotidiennes
 	 side effects sur l'environement
      glue 'n' globbing
      eviter les structures complexes
 
-
-  interpreteurs
+
+› interpreteurs
 
      Bourne, Korn, C, rc
      Csh Programming Considered Harmful
-     Posix, Portabilité et marmottes ... 
-     Bash par defaut? mksh, dash, zsh ... 
+     Posix, Portabilité et marmottes ...
+     Bash par defaut? mksh, dash, zsh ...
 
-
-  zsh
+
+› zsh
 
      pique les bonnes idées
      ose abandonner les mauvaises
      en ajoute de nouvelles
 
-
-  prerequis
+
+› prerequis
 
      bases de shell
      curiosité
 
-
-  expansions
+
+› expansions
 
      glob: file expansion
 	 zsh glob >>> posix
      brace: factorisation
 	rm /var/log/mail/error.log \
-	   /var/log/mail/info.log 
+	   /var/log/mail/info.log
 	⇒
-	rm /var/log/mail/{error,info}.log 
+	rm /var/log/mail/{error,info}.log
 
-
-  factoriser: brace
 
-
-  les scalaires
+› factoriser: brace
+
+
+› les scalaires
 
      $ a l'interpolation
      pas de $ a l'affectation
@@ -53,26 +53,26 @@
     IFS=\; read x y <<< "34;62"
     print "$a $b $x $y"
 
-
-  tableaux
+
+› tableaux
 
      tableaux.zsh
      associatifs.zsh
      tie
 
-
 
 
-  syntaxe simple
+
+› syntaxe simple
 
      valeur de retour = ERRNO
 	0 < x < 255
-     
+    
 	0 < x < 255
 
 
-
-  contextes
+
+› contextes
 
      test
 	[[ -d /etc ]]
@@ -82,7 +82,7 @@
 	{ print $file: ; cat $file } > foo
      subshell
 	xp
-	( xp=12; print ) 
+	( xp=12; print )
 
 
-
+

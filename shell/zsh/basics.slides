@@ -1,78 +1,78 @@
-  Interpolation de variables (Expansion)
-      Utilisation *explicite* de l'IFS
-	  différence
+› Interpolation de variables (Expansion)
+    › Utilisation *explicite* de l'IFS
+    › différence
 
-	x="a b c"
-	for e in ...
+    x="a b c"
+    for e in ...
                           | korn | zsh
-	------------------+------+------
-	"$x"              |  1   |  1
-	------------------+------+------
-	$x                |  3   |  1 
-	------------------+------+------
-	$=x               |  X   |  3 
-	------------------+------+------
-	$( echo a b c )   |  3   |  3
-	------------------+------+------
-	"$( echo a b c )" |  1   |  1
-	------------------+------+------
+    ------------------+------+------
+    "$x"              |  1   |  1
+    ------------------+------+------
+    $x                |  3   |  1
+    ------------------+------+------
+    $=x               |  X   |  3
+    ------------------+------+------
+    $( echo a b c )   |  3   |  3
+    ------------------+------+------
+    "$( echo a b c )" |  1   |  1
+    ------------------+------+------
 
-	
-	  bénéfices
 
-	     appeller un chat un chat
-		 "" chaine interpolée
-		 '' chaine protégée
-		 << heredoc
-		 () pour un tableau
+    › bénéfices
 
-	     simplifie la protection des quotes
+         appeller un chat un chat
+         "" chaine interpolée
+         '' chaine protégée
+         << heredoc
+         () pour un tableau
 
-	
-    
-      Expansion flags (man zshexpn)
+         simplifie la protection des quotes
 
-	 modifie l'interpolation
-	 syntaxe ${(modifiers)name}
-	 exemple:
 
-	  codes=" a B c"
-	  for c ( ${(s,:,)codes} )  print ${(U)c
-	  for c ( ${(Us,:,)codes} ) print $c
 
-    
-      nested expansion
+    › Expansion flags (man zshexpn)
 
-      l'idée générale
+     modifie l'interpolation
+     syntaxe ${(modifiers)name}
+     exemple:
 
-	$exp1 => ${exp1}
-	# cf. slides sur korn shell 
+      codes=" a B c"
+      for c ( ${(s,:,)codes} )  print ${(U)c
+      for c ( ${(Us,:,)codes} ) print $c
 
-	et en zsh ... 
 
-	    => ${${exp1}}
-	    => ${${${exp1}}}
-	    => ${${${${exp1}}}}
-	    => ${${${${${exp1}}}}}
-	    => ...
-    
-      chaque niveau peut 
+    › nested expansion
 
-	 utiliser la syntaxe complete de de variables
-	     parameter expansions korn 
-	     parameter flags zsh
-	 meme en cas de convertion
+    › l'idée générale
 
-    
+    $exp1 => ${exp1}
+    # cf. slides sur korn shell
+
+    et en zsh ...
+
+        => ${${exp1}}
+        => ${${${exp1}}}
+        => ${${${${exp1}}}}
+        => ${${${${${exp1}}}}}
+        => ...
+
+    › chaque niveau peut
+
+     utiliser la syntaxe complete de de variables
+         parameter expansions korn
+         parameter flags zsh
+     meme en cas de convertion
+
+
 
 
     # eiro:x:1000:1000:Marc Chantreux,,,:/home/eiro:/bin/zsh
     rawant="$( getent passwd eiro )"
-    pw_ent=( ${(s,:,)rawant} ) 
+    pw_ent=( ${(s,:,)rawant} )
     homedir=$pw_ent[6]
     # /home/eiro
 
     ${${(s,:,)${"$( getent passwd mc )"}}[6]}
 
-    
-
+
+

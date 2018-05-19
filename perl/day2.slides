@@ -1,30 +1,35 @@
-  reponses de retour de pause
+› Perl basics (jour 2)
+
+    présentation interne à Biblibre
+    circa 2008
+
+› reponses de retour de pause
 
      les sigils c'est moche!
-	 ca m'a fait fuir (line noise ?)
-	 et revenir
-	     informatif
-	     $line->$noise vs noise()
+     ca m'a fait fuir (line noise ?)
+     et revenir
+         informatif
+         $line->$noise vs noise()
 
      metaprogramming et ajouts syntaxiques
-	 Devel::SimpleTrace
-	 Package::Stash
-	 Devel::Declare
-	 Moose
-	 MooseX::Declare
-	 http://www.tinybox.net/2009/08/06/a-marc-mapper-in-few-lines-of-perl/
-
-
-  liens 
-
-      Regexps
-
-	 Anagrames, Regexps et parcours d'arbres
-	    http://khatar.phear.org/anagrams/
-	 Mettre les Regexps dans des modules
-	    http://www.tinybox.net/2009/06/27/put-regexes-in-a-module/
-
-    
+     Devel::SimpleTrace
+     Package::Stash
+     Devel::Declare
+     Moose
+     MooseX::Declare
+     http://www.tinybox.net/2009/08/06/a-marc-mapper-in-few-lines-of-perl/
 
 
-
+› liens
+
+    › Regexps
+
+     Anagrames, Regexps et parcours d'arbres
+        http://khatar.phear.org/anagrams/
+     Mettre les Regexps dans des modules
+        http://www.tinybox.net/2009/06/27/put-regexes-in-a-module/
+
+
+
+
+

@@ -1,34 +1,34 @@
-  Alice in wonderland
+› Alice in wonderland
 
-      l'information transite
+    › l'information transite
 
-	 de votre machine au serveur
-	 par tous les éléments actifs
-	 ~ 14 entre chez moi et pepys
+     de votre machine au serveur
+     par tous les éléments actifs
+     ~ 14 entre chez moi et pepys
 
-    
-      sniffing
 
-	 directement sur l'équipement
-	 wifi en clair ou cassé
-	     au café, a l'hotel
-	     pendant une demo
-	 cache-poisoning sur les LANs
+    › sniffing
 
-    
+     directement sur l'équipement
+     wifi en clair ou cassé
+         au café, a l'hotel
+         pendant une demo
+     cache-poisoning sur les LANs
 
-
-  This is business, not personal
+
+
+
+› This is business, not personal
 
      le coucou: un modèle!
      avoir un pied dans la porte
      les ressources des autres
-	 monnaie d'échange
-	 étendre son empire
+     monnaie d'échange
+     étendre son empire
      même MS s'inquiète des botnets
 
-
-  mais a biblibre nous hebergeons
+
+› mais a biblibre nous hebergeons
 
      des données qui ne nous appartiennent pas
      dont nous ne connaissons la criticité
@@ -36,166 +36,166 @@
      ne ne faisons pas de prévention
      flou juridique
 
-
-  les risques (pour les clients)
+
+› les risques (pour les clients)
 
      l'intégrité menacée et inauditable!
-	 des biens matériels
+     des biens matériels
      vol d'infos
-	 infos personnelles
+     infos personnelles
      nombreux usecases
-	 supprimer les objets volés du catalogue
-	 constitution de base commerciale
-	 ...
+     supprimer les objets volés du catalogue
+     constitution de base commerciale
+     ...
 
-
-  conséquences stratégiques
+
+› conséquences stratégiques
 
      converture juridique ?
-	 avons pris connaissance
-	 acceptons les risques
-	 pour nous et nos usagers
-     converture technique ? 
-	 authenticité
-	 intégrité
-	 confidentialité
-	 tracabilité
+     avons pris connaissance
+     acceptons les risques
+     pour nous et nos usagers
+     converture technique ?
+     authenticité
+     intégrité
+     confidentialité
+     tracabilité
 
-
-   coté sysop
+
+›  coté sysop
 
      maintenance préventive
-	 audit couteux
-	     a deployer
-	     a maintenir
-	 trouver des traces
-	 pen. test
+     audit couteux
+         a deployer
+         a maintenir
+     trouver des traces
+     pen. test
      maintenance active
-	 conserver les traces
-	 mettre les failles en évidence
-	 identifier le pirate
+     conserver les traces
+     mettre les failles en évidence
+     identifier le pirate
      et la marmotte ...
 
-
-  et dire que vous me trouvez chiant ...
+
+› et dire que vous me trouvez chiant ...
 
      aucun mot de passe ne devrait
-	 etre envoyé par mail non crypté
-	 ne devrait être stocké en clair
-	 encore moins en ligne (dolibar)
+     etre envoyé par mail non crypté
+     ne devrait être stocké en clair
+     encore moins en ligne (dolibar)
      https devrait etre imposé pour
-	 l'utilisation de l'inteface pro
-	 l'utilisation d'un compte pro dans l'opac
+     l'utilisation de l'inteface pro
+     l'utilisation d'un compte pro dans l'opac
      mon password, mon slip ...
 
-
-  le bon deal: saines habitudes
+
+› le bon deal: saines habitudes
 
      sécurité
-	 contraignant
-	 affaire de tous
+     contraignant
+     affaire de tous
      comprendre la stratégie globale
      appliquer des pratiques saines
      se doter d'outils
 
-
-  S comme secure
+
+› S comme secure
 
     pop     ⇒ pops
     imap    ⇒ imaps
     ftp     ⇒ sftp ou scp
     telnet  ⇒ ssh
 
-
-  Pourquoi crypter
 
-      confidentialité
+› Pourquoi crypter
 
-	notre conversation doit rester secrete
+    › confidentialité
 
-    
-      authenticité
+    notre conversation doit rester secrete
 
-	 tu dois etre sur que c'est moi
-	 je dois etre sur que c'est toi
 
-    
-      intégrité
+    › authenticité
 
-	je dois etre sur que le message
-	que je lis est bien celui que tu
+     tu dois etre sur que c'est moi
+     je dois etre sur que c'est toi
 
-    
 
-
-  La cryptographie
+    › intégrité
+
+    je dois etre sur que le message
+    que je lis est bien celui que tu
+
+
+
+
+› La cryptographie
 
      passer d'un texte en clair (plain text)
      grace a un algorithme réversible
      pour obtenir un texte crypté (cyphertext)
 
-
-  Exemple simple: ROT13
+
+› Exemple simple: ROT13
 
      roue de 26 parts
      crypter   = avancer de 13
      décrypter = avancer de 13
 
-	xyzabc
-	klmnop
+    xyzabc
+    klmnop
 
-
-  Problèmes de ROT13
+
+› Problèmes de ROT13
 
      pas d'authenticité ni d'intégrité
      ne sert a rien si le pirate connait l'algo
      qui est fragile par sa simplicité
 
-
-  ROTn: Crypto symétrique
+
+› ROTn: Crypto symétrique
 
      n: clef biblibre a choisir entre nous
-     l'algo de decryptage est différent 
+     l'algo de decryptage est différent
      le pirate doit maintenant connaitre
-	 algorithme ROT
-	 la valeur de n
+     algorithme ROT
+     la valeur de n
      si la clef est découverte: le pirate peut
-	 crypter
-	 décrypter
-
-  Crypto asymétrique
+     crypter
+     décrypter
 
-      une paire de clefs
+› Crypto asymétrique
 
-	 clef privée
-	    votre sceau
-	 clef publique
-	    authenticité du sceau 
+    › une paire de clefs
 
-    
-      exposition de la clef publique
+     clef privée
+        votre sceau
+     clef publique
+        authenticité du sceau
 
-	 risques de compromission faible 
-	 authenticité des deux pairs
 
-    
-      Crypter
+    › exposition de la clef publique
 
-	plaintext
-	+ algorithme
-	+ clef privée de l'émetteur
-	+ les clefs publiques des récepteurs
-	= cyphertext
+     risques de compromission faible
+     authenticité des deux pairs
 
-    
-      Décrypter
 
-	cyphertext
-	+ algorithme
-	+ clef publique de l'émetteur
-	+ une clef privée de récepteur
-	= plaintext
+    › Crypter
 
-    
+    plaintext
+    + algorithme
+    + clef privée de l'émetteur
+    + les clefs publiques des récepteurs
+    = cyphertext
 
-
+
+    › Décrypter
+
+    cyphertext
+    + algorithme
+    + clef publique de l'émetteur
+    + une clef privée de récepteur
+    = plaintext
+
+
+
+

@@ -1,31 +1,31 @@
-  maintenir vos paires
+› maintenir vos paires
 
-     
+    
 
-
-  vim over scp
+
+› vim over scp
 
      sa conf. partout
      comparer 2 fichiers distants
 
     vim \
-    scp://descartes/.ssh/authorized_keys \ 
+    scp://descartes/.ssh/authorized_keys \
     scp://copernic/.ssh/authorized_keys
 
      vivement le cours de zsh
 
-    vim scp://{descartes,copernic}/.ssh/authorized_keys 
+    vim scp://{descartes,copernic}/.ssh/authorized_keys
 
-
-  
 
-vim ~/.ssh/config 
-ssh-copy-id 
+
 
-     
+vim ~/.ssh/config
+ssh-copy-id
 
-
-  Rapport de bug
+    
+
+
+› Rapport de bug
 
      soyez précis ou ...
      configurez votre mailchain :)
@@ -33,5 +33,5 @@ ssh-copy-id
 	ssh -oPasswordAuthentication=no -vvv machine |
 	    mail -s "rapport de bug ssh" eiro
 
-
+
 
