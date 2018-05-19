@@ -1,0 +1,574 @@
+› Perl est Sympatic
+
+
+    Journées Perl 2018
+
+
+    https://github.com/eiro/slides.vim
+    https://github.com/eiro/talks/blob/master/18/jp.slides
+    Marc Chantreux
+    Les questions sur #mongueurs@irc.perl.org
+
+› Renater
+
+    NREN (National Research and Education Network)
+    France
+
+› Renater et le libre
+
+     Sympa
+     FileSender
+     Moment
+     Jitsi
+     ...
+
+› l'état et le libre
+
+  loi n° 2016-1321 du 7 octobre 2016
+   pour une République numérique (légifrance)
+  Thinkerview de Mounir Hajoubi
+   https://thinkerview.com/mounir-mahjoubi-ministre-charge-numerique/
+
+› recommendations DISIC
+
+   DISIC:
+       Direction
+       Interministérielle des
+       Systèmes d'
+       Information et de
+       Communication
+
+   https://disic.github.io/politique-de-contribution-open-source/
+
+› Renater recrute
+
+    https://www.renater.fr/emploi-stage
+
+› A Renater
+
+     Communauté Sympa
+     Floss Evangelism
+
+› Marc Chantreux
+
+     2012: Gestion de Sympa à Unistra
+     2017: Hackathon 20ème anniversaire
+     2017: Renater
+
+› Sympa
+
+    "Gestionnaire de listes et plus si affinités"
+    -- David Verdin, Journées Perl 2013
+
+    "features ... too many of them to be described"
+    -- David Verdin, YAPC2014
+
+› Support et hosting
+
+     commercial support (linuxia, ...)
+     OW2 (open web consortium) en 2018
+     Renater (universalistes)
+      Framasoft (framalistes)
+      riseup ...
+
+› Survey 2015
+
+    1 message entrant toutes les 2 secondes
+    (mondial)
+
+› Sympa community
+
+    ▶ https://github.com/sympa-community/
+    ▶ freenode #sympa
+    ▶ freenode #sympa-fr
+    ▶ sympa-developpers(a t)listes.renater.fr
+    ▶ sympa-users(a t)listes.renater.fr
+    ▶ sympa-fr(a t)listes.renater.fr
+
+› Sympa est vieux
+
+    ▶ Base de code
+    ▶ Interface web
+    ▶ Tooling
+
+› Make "sympa great again"
+
+    sympa est un moteur de réseau social
+
+› Trouver des contributeurs
+
+    ▶ Perl semble être un frein
+
+› Perl bashing partout
+
+  Pourtant
+
+    ▶ convergences des pratiques
+    ▶ évolution de l'écosystème perl
+    ▶ outils de base
+    ▶ unix devenu mainstream
+
+› Python
+
+     PEP 448 -- Additional Unpacking Generalizations
+     PEP 498 -- Literal String Interpolation
+     PEP 572 -- Assignment Expressions
+
+› Javascript
+
+    for (x in xs) ys.push( x + 3 )
+
+    ys = xs.map ( x => x + 3 )
+
+› Javascript
+
+    for (x in xs) ys.push( x + 3 )
+
+    ys = xs.
+        filter ( x => ).
+        map ( x => x + 3 )
+
+› Mais les mongueurs ?
+
+    habitudes ont la tête dure
+    (pas que nous!)
+
+› CPAN everywhere!
+
+    Mutualiser au maximum
+     la maintenance
+     l'évolution
+
+› Un perl actuel
+
+     cacher le code "d'infrastructure"
+     cacher les pièges et les internals
+     s'inspirer des autres langages dynamiques
+
+› Les classiques
+
+      Dancer2, Moo, DBIx::Class ...
+      dzil, cpanm, plackup ...
+
+› Boilerplate ?
+
+    use strict;
+    use warnings;
+
+    # et surtout pas use 5.14!
+    use feature qw< say state unicode_strings >;
+
+    # no_match_vars c'était avant!
+    use English qw<  -no_match_vars >;
+    use Moo;
+    ...
+
+› Boilerplate ? (enable mode troll)
+
+    use autodie;
+    use Path::Tiny;
+    use Perlude;
+    ...
+
+› use Sympatic
+
+    le boilerplate officiel de sympa
+
+› let's code
+
+    package Counter
+     usage
+     implémentation(s)
+
+› package Counter (usage)
+
+    use Counter;
+    use features qw< say >;
+    my $counter = Counter->new(value => 3 );
+
+    say $counter->value;   # 3
+    say $counter->next;    # 4
+    say $counter->next;    # 5
+    say $counter->add(2);  # 7
+
+› package Counter (implementation)
+
+    package Counter;
+
+    sub new {
+        bless
+            ( +{ qw( value 0) , @_ }
+            , __PACKAGE__ );
+    }
+
+    sub value {
+        my $self = shift;
+        @_ or return $$self{value};
+        $$self{value} = shift;
+    }
+
+    sub next { ++$_[0]->{value} }
+    sub add  { ... }
+
+› package Counter (moo)
+
+    package Counter;
+    use Moo;
+
+    has qw( value is rw )
+    , default => 0;
+
+    sub next {
+        my ( $self , $value ) = @_;
+        $self->value( $self->value + 1 )
+    }
+
+    sub add { ... }
+
+› Type checking ?
+
+    has qw( value is rw )
+    , default => 0
+    , isa     => sub {
+        die "$_ isn't a number" unless /^\d$/
+    };
+
+
+› Perl6
+
+    subset Nat  of Int where * >= 0;
+    subset Mois of Nat where * < 13;
+
+ Type::Tiny permet de definir des subsets
+
+
+› Type::Tiny permet de definir des subsets
+
+    Type::Tiny ->new
+        ( name       => "Number"
+        , constraint => sub { looks_like_number($_) }
+        , message    => sub { "$_ ain't a number" } );
+
+› Types::Standard
+
+    utilise Type::Tiny pour définir des types standard
+
+›
+
+    Int, Str , ...
+
+›
+
+    Maybe[Str]
+    ArrayRef[Str]
+    InstanceOf['List']
+
+›
+
+    ArrayRef[ Maybe[ InstanceOf ['List']]]
+
+›
+
+    use Types::Standard qw< Int >;
+
+    has qw( value is rw )
+    , default => 0
+    , isa     => Int;
+
+› truc qui fache ...
+
+    sub next {
+        my ( $self , $value ) = @_;
+        $self->value( $self->value + 1 )
+    }
+
+› mes bonnes vieilles habitudes
+
+    Avant             ┃ Après
+    ━━━━━━━━━━━━━━━━━━┃━━━━━━━━━━━━━━━━━━━━━━━
+                      ┃
+    ++$$self{value}   ┃ my $c = Counter->new;
+                      ┃ $c->value( 2 );
+
+› Notation indirecte
+
+    my $c = Counter->new;
+    $c->value( 2 );
+
+› equivaut à
+
+    Counter::value $c, 2;
+
+› lvaluer un attribut ?
+
+› lvalue ?
+
+    man `perlsub`
+
+› lvalue (création)
+
+    {   my $val;
+        sub counter :lvalue { $val }
+    }
+
+› lvalue (usage)
+
+    (counter) //= 3;
+    say ++counter; # 4
+
+› comparons
+
+    old school  ┃ ++$$self{value};
+    Moo         ┃ $self->value( $self->value + 1 )
+    lvalue      ┃ ++$self->value;
+
+› let's go coding!
+
+    ... ou alors ...
+
+› let's go shopping!
+
+    CPAN 😍
+
+
+› MooX::LvalueAttribute
+
+    package Counter;
+    use Moo;
+    use MooX::LvalueAttribute;
+    use Types::Standard qw< Int >;
+
+    has qw( value is rw )
+    , default => 0
+    , lvalue  => 1
+    , isa     => Int;
+
+    sub next { ++$_[0]->value }
+    sub add  { ... }
+
+› functions variadiques (@_)
+
+    sub next { ++$_[0]->value }
+
+› functions variadiques (@_)
+
+      utiles dans 2% des cas
+      pour le reste ...
+
+› signatures
+
+        (python, javascript, ruby, php ...)
+
+› signatures
+
+     experimental depuis 5.20
+     accepté dans 5.26
+
+› sauf que ...
+
+    sympa doit supporter 5.16
+
+› pluggable keywords: perl 5.12
+
+    depuis perl 5.12
+
+› Function::Parameters
+
+  fun hello ( $who ) {   ┃  sub hello {
+      say "hello $who";  ┃      my ( $who ) = @_; 
+  }                      ┃      say "hello $who";
+                         ┃  }
+
+› valeurs par defaut
+
+    sub hello {
+        my $who = @_ ? shift : "world"; 
+        say "hello $who";
+    }
+
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    fun hello ( $who = 'world' ) {
+        say "hello $who";
+    }
+
+› Type::* dans les signatures
+
+    sub hello {
+        my $who = @_ ? shift : "world"; 
+        ref $who and die "no reference allowed"; 
+        say "hello $who";
+    }
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    use Types::Standard qw< Str >;
+
+    fun hello ( Str $who = 'world' ) {
+        say "hello $who";
+    }
+
+› Methodes
+
+     fun next ( $self ) { ++$self->value }
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     method next () { ++$self->value }
+
+› la methode add (moo)
+
+    sub add {
+        die unless @_ == 2;
+        my ($self, $int ) = @_;
+        die unless looks_like_number $int;
+        $self->value += Int->($int);
+    }
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    method add ( Int $x ) { $self->value += $x }
+
+› convention
+
+     fun : methodes privées
+     method for public methods
+
+› version finale
+
+    package Counter;
+    use Sympatic;
+    use Types::Standard qw< Int >;
+
+    has qw( value is rw )
+    , default => 0
+    , lvalue  => 1
+    , isa     => Int;
+
+    method next { ++$self->value }
+    method ( Int $add ) { $self->value += $add }
+
+› en réalité ...
+
+    besoin de plus
+
+› boilerplate
+
+    package Counter;
+    use Moo;
+    use MooX::LvalueAttribute;
+    use strict;
+    use warnings;
+    use feature qw< say >;
+    use English qw<  -no_match_vars >;
+    use autodie;
+    use Function::Parameters;
+    use Types::Standard qw< Int >;
+
+› Sympatic
+
+    package Counter;
+    use Sympatic;
+    use Types::Standard qw< Int >;
+
+› Sympatic
+
+     moins de code
+     moins de useless bugs
+     moins de recherche sur CPAN
+
+› Sympatic
+
+     plus de documentation
+     plus de tests
+     plus de consistency
+
+› Sympatic
+
+     superset de perl connu des contributeurs
+     syntaxe déclarative
+
+
+› contactez nous
+
+* david.verdin[at]renater.fr
+* marc.chantreux[at]renater.fr
+* sympa-users[at]listes.renater.fr
+* sympa-developpers[at]listes.renater.fr
+
+› questions
+
+› extra slides
+
+› use 5.14
+
+    juste non: ~~ + given = deprecié
+
+› répeter sans cesse et oublier
+
+    chdir $spool
+        or die "$! while chdir('$spool')";
+    open my $fh,'>',"index.txt"
+        or die "$! while open('index.txt')";
+    chdir $cwd
+        or die "$! while chdir('$cwd')";
+
+› ou pas ...
+
+    use autodie;
+
+    chdir $spool;
+    open my $fh,'>',"index.txt";
+    chdir $cwd;
+
+› autodie
+
+    l'oublie pas de mourir
+
+› c'est quoi ça ?
+
+    print $(
+
+› mémoriser ...
+
+    man `perlvar` par coeur ?
+
+› ou  ...
+
+    avoir des noms de variables parlants
+
+    use English qw<  -no_match_vars >;
+    print $GID
+
+
+› pseudo cyclomatic complexity removal
+
+    if ( $foo < 10 )     { die "need more" }
+    elsif ( $foo < 100 ) { return $foo     }
+    else                 { return 100      }
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    $foo < 10 and die "need more";
+    $foo < 100 and return $foo;
+    100;
+
+› w/o do
+
+    my $user; 
+    my $fake_it = $config->is_fake;
+
+    if ( $fake_it ) {
+        logging info => "fake user provided";
+        $user = 0;
+    }
+    else {
+        logging info => "real user $UID provided";
+        $user = $UID;
+    }
+
+› do
+
+    my $user = do {
+        my $fake_it = $config->is_fake;
+        if ( $fake_it ) {
+            logging info => "fake user provided";
+            0; 
+        }
+        else {
+            logging info => "real user $UID provided";
+            $UID; 
+        }
+    };
