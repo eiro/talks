@@ -1,0 +1,16 @@
+› perl6 pour faire des maths
+
+    whatever !
+
+› sequence (* = ∞)
+
+    my \evens = 0,1.5,3 ... *;
+    evens[0..10].say;   # bores incluses
+    evens[0^..^10].say; # bornes exclues
+    (evens.grep: * > 100)[^10].say;
+
+› definition d'operateurs
+
+    sub postfix:<!> ( Int \x ) { [*] 1..x }
+    say 5!
+
