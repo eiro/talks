@@ -1,0 +1,85 @@
+› notes relatives  à l'enseignement du C
+
+     longtemps sans concurrent
+         performances
+         emprunte mémoire
+     énorme héritage
+         kernels et outils standard unix ...
+
+› fuyez!
+
+    si vous êtes
+     un programmeur occasionnel
+     vous avez besoin d'abstractions de haut niveau
+
+    parceque le C
+     vous condamne a penser comme l'ordinateur
+     vous comdamne à vous occuper de votre ordinateur
+
+› alternatives récentes
+
+     crystal, rust, go, nim, julia, ...
+     performances
+     emprunte mémoire
+     fiabilité (pas de gestion de pointeurs)
+     parallelisme, asynchronisme,
+      concurrence, distribution plus simples d'accès
+
+› les langages interprétés
+
+     les performances s'effondrent (/40)
+     deployer les dépendances partout, tout le temps
+     mais tellement plus simple!
+         concepts très abstraits
+         manipulation simple des symboles
+
+› exemple
+
+    transposition de matrice en perl6
+
+    my  @vals =
+    ( ( 1 , 2 , 3 )
+    , ( 4 , 5 , 6 )
+    , ( 2 , 3 , 1 )
+    , ( 8 , 9 , 5 )
+    , ( 1 , 1 , 1 ));
+
+    sub transpose (@matrice) {
+        @matrice[0].keys.map: -> $k { @matrice[*;$k] }
+    }
+
+    @vals.&transpose.say
+
+› premier programme
+
+    ┌─────────┐
+    │ hello.c └───────────────────
+    ├─────────────────────────────
+    │
+    │  int main () { return 42; }
+
+› compilation et execution
+
+    $ cc -o hello hello.c
+    $ ./hello
+    $ echo $?
+
+› status
+
+     0
+        ⇒ pas d'erreur = vrai
+        ⇒ vrai
+     0 > status > 255
+        ⇒ numero de l'erreur
+        ⇒ faux
+
+> exploiter le status
+
+    ./true ; echo $?
+    ./true && echo ok
+    ./true || echo jamais affiché
+    if {./true} {echo ok}
+
+> good links
+
+    https://zserge.com/blog/c-for-loop-tricks.html
