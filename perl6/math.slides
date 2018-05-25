@@ -1,16 +1,50 @@
+› Demos
+
+    afficher ligne par ligne la factorielle
+    des 1000 premiers termes de l'ensemble ℕ.
+
+    demos/factorial.p6
+
+› factorielle
+
+    𝒙! = ∏ ( 1 ≥ 𝒊 ≥ x ) i
+    4! = 1 * 2 * 3 * 4
+
+    sub postfix:<!> ( Int \x ) { [*] 1..x }
+    my \ℕ = 0...∞;
+    ℕ[^1000].hyper.map( *! )>>.say;
+
 › perl6 pour faire des maths
 
-    whatever !
+      a Rat is a Rat!
+     whatever ! (sequences,boilerplate, ...)
 
 › sequence (* = ∞)
 
     my \evens = 0,1.5,3 ... *;
+
     evens[0..10].say;   # bores incluses
     evens[0^..^10].say; # bornes exclues
+
     (evens.grep: * > 100)[^10].say;
 
 › definition d'operateurs
 
     sub postfix:<!> ( Int \x ) { [*] 1..x }
     say 5!
+
+› demos, perl6 one liners
+
+    "le 39eme élément de la suite
+    de fibonnaci est superieur à 100_000_000"
+
+› demos, perl6 one liners
+
+    say "
+    le { (1, 1 , * + * ... * ).pairs\
+            .grep( *.value > 100_000_000)\
+            .[0].key
+    }eme élément de la suite
+    de fibonnaci est superieur à 100_000_000"
+
 

@@ -6,15 +6,22 @@
      énorme héritage
          kernels et outils standard unix ...
 
-› fuyez!
+› premier langage ? fuyez!
+
+    parceque le C est trop bas niveau, il vous condamne à
+
+     penser comme l'ordinateur
+     vous occuper des contraintes de l'ordinateur
+
+› l'ordinateur
+
+    « l'ordinateur est à l'informatique ce que le
+    téléscope est à l'astronomie »
+
 
     si vous êtes
      un programmeur occasionnel
      vous avez besoin d'abstractions de haut niveau
-
-    parceque le C
-     vous condamne a penser comme l'ordinateur
-     vous comdamne à vous occuper de votre ordinateur
 
 › alternatives récentes
 
@@ -50,13 +57,45 @@
 
     @vals.&transpose.say
 
+› fonctions (mathématiques)
+
+    𝒇(𝒙) ↦ ℕ → ℕ
+    𝒇(𝒙) = 𝒙 * 𝒙
+
+› domaine de définition 𝓓 𝒇
+
+    𝒇(𝒙) : ℕ → ℕ
+
+    la fonction n'est valable que si 𝒙 est un ℕ
+
+› l'ensemble image 𝒇(𝓓 𝒇)
+
+    𝒇(𝒙) : ℕ → ℕ 
+
+    l'image produite par 𝒇(𝒙) est un ℕ
+
+› 
+
 › premier programme
 
     ┌─────────┐
     │ hello.c └───────────────────
     ├─────────────────────────────
     │
+    │  int answer(int x) { return(x * x) }
     │  int main () { return 42; }
+
+› fonction
+
+    int answer(int x) { return(x * x) }
+
+› main
+
+    nom
+
+    int main () { return 42; }
+
+› main
 
 › compilation et execution
 
