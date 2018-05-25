@@ -1,8 +1,6 @@
 › Perl est Sympatic
 
-
     Journées Perl 2018
-
 
     https://github.com/eiro/slides.vim
     https://github.com/eiro/talks/blob/master/18/jp.slides
@@ -157,6 +155,8 @@
 
     # et surtout pas use 5.14!
     use feature qw< say state unicode_strings >;
+    use open qw< :UTF-8  :std >;
+    use utf8;
 
     # no_match_vars c'était avant!
     use English qw<  -no_match_vars >;
@@ -284,11 +284,8 @@
 
 › mes bonnes vieilles habitudes
 
-    Avant             ┃ Après
-    ━━━━━━━━━━━━━━━━━━┃━━━━━━━━━━━━━━━━━━━━━━━
-                      ┃
-    ++$$self{value}   ┃ my $c = Counter->new;
-                      ┃ $c->value( 2 );
+    Avant │ $$self{value} += 2
+    Après │ $self->value( $self->value + 2 )
 
 › Notation indirecte
 
@@ -405,6 +402,13 @@
     fun hello ( Str $who = 'world' ) {
         say "hello $who";
     }
+
+› more ...
+
+    fun greetings ( Str $name = $ENV{USER} // 'world' ) {
+        say "hello $name"
+    }
+    greetings "program";
 
 › Methodes
 
@@ -541,9 +545,14 @@
     elsif ( $foo < 100 ) { return $foo     }
     else                 { return 100      }
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    $foo < 10 and die "need more";
-    $foo < 100 and return $foo;
+    $foo < 10     and die "need more";
+    $foo < 100    and return $foo;
     100;
+
+› do
+
+    🐍
+
 
 › w/o do
 
@@ -572,3 +581,22 @@
             $UID; 
         }
     };
+
+› Path::Tiny + List::AllUtils
+
+    my $file =
+        first { -e ? path($_) : () }
+        qw( those candidates for configuration );
+
+
+› Historique
+
+    basée sur la conf. fosdem 2018
+    présentée
+        aux journées perl 2018
+        au hackathon sympa 2018
+    base pour
+        the perl conference europe 2018
+
+
+
