@@ -1,0 +1,393 @@
+› zsh for the mongers
+
+    Marc Chantreux
+
+    @marcchantreux │ twitter
+    eiro           │ github
+
+› Journées Perl 2009
+
+    "zsh pour les mongueurs"
+    my first talk
+
+› Journées Perl 2009
+
+    ⇒ epic fail
+
+› to Camille Maussang
+
+    you should reboot it ...
+
+› zsh for mongers, reboot
+
+    zsh is a unix shell
+     awesome REPL
+     #! for scripting
+
+› but ...
+
+    "easier to port a shell than a shell script"
+    -- Larry Wall
+
+› zsh » unix shell
+
+     inspired by rc, ksh, tcsh
+     without nostalgia
+
+› forget
+
+     portability
+     posix
+
+› to get the job done
+
+     associative arrays
+     expansions made right
+     lot of improvements
+
+› man zsh
+
+ zsh          Zsh overview (this section)
+ zshroadmap   Informal introduction to
+              the manual
+ zshmisc      Anything not fitting into the
+              other sections
+ zshexpn      Zsh command and parameter expansion
+ zshparam     Zsh parameters
+ zshoptions   Zsh options
+ zshbuiltins  Zsh built-in functions
+ zshzle       Zsh command line editing
+ ...
+
+› man zsh
+
+ zshcompwid   Zsh completion widgets
+ zshcompsys   Zsh completion system
+ zshcompctl   Zsh completion control
+ zshmodules   Zsh loadable modules
+ zshcalsys    Zsh built-in calendar functions
+ zshtcpsys    Zsh built-in TCP functions
+ zshzftpsys   Zsh built-in FTP client
+ zshcontrib   Additional zsh functions and utilities
+
+› man zshall
+
+    Meta-man page containing all of the above
+
+› let's get started: scalar
+
+  greetings=hello    │
+  echo $greetings    │ hello world
+  echo '$greetings'  │ $greetings
+  echo "$greetings"  │ hello world
+
+› scalar
+
+  greetings=hello    │ bareword 
+                     │ no sigil 
+                     │
+  echo $greetings    │
+  echo '$greetings'  │
+  echo "$greetings"  │
+
+› sigils, twigils
+
+     $ means  parameter expansion 
+     twigils are for expansion control
+     no @ and %
+
+› array
+
+    parts=(
+        this
+        'perl conference'
+        is
+        awesome
+    )
+    ────────────────────────────────────────────
+    $parts[2]    ⇒ 'perl conference'
+    $parts[2,-1] ⇒ 'perl conference' is awesome
+
+› array (local)
+
+  local -a parts=(     │ @parts =
+    this               │   ( 'this'
+    'perl conference'  │   , 'perl conference'
+    is                 │   , 'is'
+    awesome )          │   , 'awesome' );
+                       │
+› associative array
+
+  local -A parts=(     │ %parts =
+    this               │   ( 'this'
+    'perl conference'  │   , 'perl conference'
+    is                 │   , 'is'
+    awesome )          │   , 'awesome' );
+
+› associative array (uze.zsh)
+
+  my% parts=(          │ %parts =
+    this               │   ( 'this'
+    'perl conference'  │   , 'perl conference'
+    is                 │   , 'is'
+    awesome )          │   , 'awesome' );
+
+› structures
+
+  zsh              │ uze.zsh   │ perl
+                   │           │
+  local -a parts   │ my@ parts │ local @parts
+  local -A parts   │ my% parts │ local %parts
+
+› associative array
+
+    local -A parts=(
+    parts=(
+        this  'perl conference'
+        is    awesome
+    )
+    ────────────────────────────────────────────
+    $parts[this]    ⇒ 'perl conference'
+    $parts[is]      ⇒ awesome
+
+› associative array
+
+    local -A parts=(
+    parts=(
+        this  'perl conference'
+        is    awesome
+    )
+    ────────────────────────────────────────────
+    ${(k)parts}     ⇒ this is
+    ${(v)parts}     ⇒ 'perl conference' awesome
+    ${(kv)parts}    ⇒
+        this  'perl conference'
+        is    awesome
+
+
+
+› functions  ⇒ sub
+
+    greetings () { print $1 }
+    greetings John
+    ────────────────────────────────
+    sub greetings () { say $_[0] }
+
+› variadic
+
+    zsh         perl
+    ─────────────────────────
+    $0          # sub name
+    "$@"        @_
+    "$*"        join " ", @_
+    $1          $_[0]
+    $2          $_[1]
+    ...
+    $@[1,3]     @_[0..2]
+
+› shorter ?
+
+    greetings () { print $1 }
+    greetings () print $1
+
+› scope
+
+    ▶ global to the interpreter by default
+    ▶ a file is a function
+
+› scope: global by default
+
+   greetings () {          │
+     who=$1                │
+     print "hello $who"    │ hello Larry
+   }                       │
+   greetings Larry         │
+   print $who still there  │ Larry still there
+
+› setopt warncreateglobal (set -u)
+
+   greetings () {
+     who=$1
+     print "hello $who"
+   }
+   greetings Larry
+   print $who still there
+   ────────────────────────────────
+   greetings:1: scalar parameter 
+   who created globally in function greetings 
+   ▶ hello Larry
+   ▶ Larry still there
+
+› local
+
+   greetings () {
+     local who=$1
+     print "hello $who"
+   }
+   greetings Larry
+   print $who still there
+   ────────────────────────────────
+   ▶ hello Larry
+   ▶ still there     # use strict ? 
+
+› setopt nounset
+
+   setopt nounset
+   greetings () {
+     local who=$1
+     print "hello $who"
+   }
+   greetings Larry
+   print $who still there
+   ────────────────────────────────
+   ▶ hello Larry
+   zsh: who: parameter not set 
+
+› variable state
+
+    no "undef", the variable is either
+
+    perl          zsh         example
+
+    undeclared  │ unset     │
+    length == 0 │ empty     │ x=
+    length > 0  │ non-empty │ x=42
+
+› test
+
+    perl             zsh
+
+    defined $x         │ $+x          │ 0 or 1
+    length  $x         │ $#x          │
+
+    use of math context to use:
+
+        (( $#x )) || print '$x is empty'
+
+› default value
+
+    zsh        perl
+
+    $who     │ $who
+    ${who}   │ $who
+
+
+› hello world
+
+    zsh  │  print 'hello world'
+    perl │  print 'hello world';
+
+› hello world
+
+            $0    $1    $2 
+    zsh  │ print hello world
+
+
+› hello world
+
+
+    print hello world
+    ──────────────────
+    print join " ", qw( hello world )
+
+
+› variadic functions
+
+
+› parameters
+
+  tomate=fruit to=play
+  print $tomate
+  print ${to}mate
+
+› parameters
+
+  tomate=fruit to=play │ affectations
+                       │ (no space around =) 
+                       │
+  print $tomate        │ $ means "parameter expansion"
+  print ${to}mate      │
+
+› in perl
+
+
+
+
+
+  x='l''éveil de la force'   │
+  x=''   │
+
+this is              │
+a cool demo          │
+against the machine  │
+
+
+greetings='hello $USER' │
+                        │
+                        │
+                        │
+                        │
+
+
+
+
+› man zshmisc
+
+     complex commands (control statements)
+     alternative syntax
+     pipes (states) and redirections
+
+
+    nat () {
+    }
+
+    i=0
+    while {true} {print $[i++] }
+
+› expansions (zshexpn)
+
+    ...
+    Parameter Expansion    (interpolation) 
+    Arithmetic Expansion   (maths) 
+    Brace Expansion        (ranges and lists ...) 
+    ...
+
+› expansions (zshexpn)
+
+    Filename Expansion  │ globs on steroids 
+    Filename Generation │
+    ...
+
+› take expansions
+
+     very seriously
+     optionally
+
+    man zshoptions
+
+› complex commands
+
+    control statements
+
+› strictness
+
+set -u; warn if 
+set -e;
+nounset; don't use unset variables (set -u)
+errexit; exit when error (set -e)
+warncreateglobal;warn unless local
+localoptions;local behavior change
+
+extendedglob;awesome globbing system
+globstarshort;find made easy
+braceccl;ranges {0..$max} {a..z}
+rcquotes;
+
+
+
+    x='l''éveil '
+
+
+
+
+
