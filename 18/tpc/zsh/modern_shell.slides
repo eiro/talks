@@ -1,14 +1,17 @@
+› why ?
+
+     direct and convenient access to commands
+
+
+
+
 › shell scripting
 
      interactivité
-	 taches quotidiennes
-	 side effects sur l'environement
+     taches quotidiennes
+     side effects sur l'environement
      glue 'n' globbing
      eviter les structures complexes
-
-
-› interpreteurs
-
      Bourne, Korn, C, rc
      Csh Programming Considered Harmful
      Posix, Portabilité et marmottes ...

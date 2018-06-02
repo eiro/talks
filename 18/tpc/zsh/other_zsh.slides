@@ -1,0 +1,171 @@
+› zsh for mongers
+
+› command line shell
+
+     your awesome REPL (prompt, completion, ...)
+     a scripting langage
+
+› command line
+
+
+print hello world
+print -l hello world
+
+hostname
+getent passwd mc
+id
+
+
+
+› shell
+
+    # doesn't work!
+    # print -l *(P:-f:)
+
+scope
+
+    b=beta
+    ( a=alpha b=${(U)b}
+        print in $a $b ) &
+    print out a=${a-} b=${b-}
+
+    b=beta
+    ( a=alpha b=${(U)b}
+        print in $a $b ) &
+    print out a=${a-} b=${b-}
+
+  alpha=( {a..z} )                │ array
+  repeat $#alpha {                │ range
+      print ${(j:│:)alpha}        │ size
+      alpha+=$alpha[1]            │ slices
+      alpha[1]=()                 │
+  }                               │
+
+  use 5.26.0;                     │ array
+  my @alpha = 'a'..'z';           │ range
+  map {                           │ size
+      say join "│", @alpha;       │ slices
+      push @alpha, shift @alpha;  │
+  } 0..$#alpha                    │
+
+    print hello world
+    > hello world
+
+    print -l hello world
+    > hello
+    > world
+
+    print -l 'hello world'
+    > hello world
+
+    print hello world
+    > hello world
+
+    print -l hello world
+    > hello
+    > world
+
+    print -l 'hello world'
+    > hello world
+
+
+
+    say for qw( hello world )
+    ─────────────────────────
+    print -l hello word
+
+    say for qw( hello world )
+    ─────────────────────────
+    for it (hello world) print $it
+
+    say for qw( hello world )
+    ─────────────────────────
+    for it (hello world)
+        print $it
+
+    say for qw( hello world )
+    ─────────────────────────
+    for it (hello world) {
+        print $it
+    }
+
+    say join " ", qw( hello world )
+
+    perl │ say qw( hello world )
+
+    ls
+    hostname
+    echo hello world
+
+    a script (think program)
+    is a list of commands
+
+    a command line is like an imperative sentence
+
+    * made of barewords
+    * starts with a verb
+    * 
+
+    slow
+
+    ls
+    ls -al
+    ls --all
+    ls --sort=size
+
+
+
+    -l is a flag
+    a flag change the behavior of command
+    some commands provide long versions (use them while scripting)
+    ⇒ -a and --all are equivalents
+
+
+    print -l hello world
+
+    variable       │ parameter
+    interpolation  │ expansion
+
+
+    my        nope
+    our       nope
+    state     ⇒ pipes and subshell
+    local     yes
+
+    l 1 50 70 100           |
+        @- {l $it; sleep 1} |
+        zenity --progress
+
+        cool=()
+        l those are it |
+
+getlines () {
+	local _
+	IFS=$'\n' read -d '' "$@" _
+}
+
+cool="$(< /etc/passwd )"
+
+getlines () {
+	local _
+	IFS=$'\n' read -d '' "$@" _
+}
+
+    zenity --file-selection --multiple --separator=$'\n'
+zenity --color-selection --show-palette |
+    IFS='(,)' read _ r v b _
+print -f '#%x%x%x' $r $v $b
+zenity --forms --add-entry={foo,bar,bang} --separator=$'\n' | getlines foo bar bang
+
+@ (
+    "there is no way"
+    "no way i said"
+) l BEGIN:${it/#no/X} END:${it/%way/X}
+
+@ ("the whole line") l ${it/#%t*h} ${it/#%t*e/CATCH}
+
+    /#hello    /^hello
+    /%hello    /hello$
+    /#%hello   /^hello$
+
+
