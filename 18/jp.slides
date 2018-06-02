@@ -549,12 +549,21 @@
     $foo < 100    and return $foo;
     100;
 
-› do
+› what does this code ?
 
-    🐍
+    my $user;
+    my $fake_it = $config->is_fake;
 
+    if ( $fake_it ) {
+        logging info => "fake user provided";
+        $user = 0;
+    }
+    else {
+        logging info => "real user $UID provided";
+        $user = $UID;
+    }
 
-› w/o do
+› it initialize $user
 
     my $user; 
     my $fake_it = $config->is_fake;
@@ -568,7 +577,33 @@
         $user = $UID;
     }
 
-› do
+› in ruby
+
+    ruby
+    ─────────────────────────────────
+
+    w = 3
+    x = if w > 2
+            then
+                puts "hello world" 
+                if 3 == 3 then 3 else 4
+            end
+        else
+            0
+        end
+    puts x
+
+› other langages
+
+    ruby
+    python
+    javascript
+    livescript
+    haskell
+    elm
+    ...
+
+› do makes it obvious
 
     my $user = do {
         my $fake_it = $config->is_fake;
@@ -581,6 +616,9 @@
             $UID; 
         }
     };
+
+›  do  creates
+
 
 › Path::Tiny + List::AllUtils
 
@@ -598,5 +636,32 @@
     base pour
         the perl conference europe 2018
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+› 
+
+› 
+
+› 
+
+› 
+
+› 
+
+› 
+
+› 
 
 
