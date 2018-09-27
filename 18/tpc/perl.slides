@@ -1,0 +1,752 @@
+
+so %:r.vim before starting
+vim: et ts=2 sts=2 sw=2
+
+› Back to Perl
+
+  The Perl Conference
+  Glasgow, august 2018
+
+› thanks to Renater
+
+  The french National
+             Research and
+             Education
+             Network
+
+› Renater
+
+  Connectivity    │  to  │ Universities
+  Infrastructure  │      │ Research labs
+  Services        │      │ others GO
+  Hosting         │
+  Expertise       │
+  Training        │
+
+› Renater
+
+
+  Involved in Open Source developement
+  ────────────────────────────────────
+  sympa, moment, baresip,
+  jisti, shiboleth, filesender,
+  ...
+
+› Renater
+
+
+  Recruting
+  ────────────────────────────────────
+  Paris, Rennes, Grenoble
+  http://renater.fr
+  (or contact me)
+
+
+› Sympa project
+
+  a large organization scale
+  mailing list manager
+  ────────────────────────────
+  (high customization,
+  delegation, automation, ...)
+
+› Sympa project
+
+
+  a large and welcoming community
+  ───────────────────────────────
+  survey 2015:
+  ~ 3500       sites
+  ~ 30.000.000 users
+  ~ 1 incoming messages every
+    2 seconds
+
+› Sympa project
+
+  need perl contributors
+
+› perl5 related
+
+  perl6 is the │ best dynamic langage ever
+
+› perl5 related
+
+  perl6 is the │ best dynamic langage ever
+               │ worse name ever
+
+› perl5 related
+
+  perl6 is the future of perl
+
+› contact me
+
+  marc.chantreux
+  at
+  renater.fr
+
+      (hallway track)++
+
+› CV update
+
+  2012-2017, University of Strasbourg
+  ───────────────────────────────────
+  Application manager
+  collaborative tools
+
+  2012-2017, Renater
+  ───────────────────────────────────
+  FLOSS Evangelist
+  Sympa project
+
+› everything is your own
+
+  sysop and platform administration,
+  technical support,
+  training, documenting,
+  feedbacks,
+  ...
+
+› i learn
+
+  a new job
+
+› i learn
+
+  to take care of
+
+  ┃ users
+  ┃ communities
+
+› listen
+
+  understand the decision process
+  is a time spent wisely.
+
+  the "best" solution is the one
+  that please the user.
+
+› listen
+
+  understand the decision process
+  is a time spent wisely.
+
+  you can  choose a better solution
+
+
+› listen
+
+  understand the decision process
+  is a time spent wisely.
+
+  you can │choose a better solution
+          │explain
+
+› listen
+
+  same for a programming langage.
+
+› listen
+
+  same for a programming langage.
+  ────────────────────────────────────────
+  perl isn't the good langage for everyone
+
+› listen
+
+  same for a programming langage.
+  ────────────────────────────────────────
+  perl isn't the good langage for everyone
+
+  DEAL WITH IT
+
+› became "the old man"
+
+  some white hairs
+  anecdotes about 90's internet
+  random grumbles about new technologies
+
+› became "the old man"
+
+  most developpers
+  are less than 30
+
+› became "the old man"
+
+  most developpers
+  were not when perl "died"
+
+› they
+
+  don't even hate perl
+
+› they
+
+  don't even care about perl
+
+› they
+
+  don't even know perl
+
+› they
+
+  FEAR the perl because of
+  all those scarry tales about
+  developers lost in a land of
+  sigils and gone insane.
+
+  black magic, daemons, zombies
+  and deadlocks.
+
+› dark ages of heresy
+
+  PC and Internet became huge market
+
+   qualified IT professionals shortage
+   the standard newcomer
+      windows user using web browser
+      WTF is http? i write php code
+   6 months training
+      to become an "IT expert"
+
+› dark ages: lost unix magic?
+
+  unix as │ an ecosystem
+          │  a culture
+
+› dark ages: lost unix magic?
+
+  unix: a learning playground
+  ──────────────────────────────────────────
+  piping on demand streams,
+  regular expressions, implicity,
+  grammars, variadic functions,
+  partial application, ...
+
+› dark ages: lost unix magic?
+
+  once you get all of those
+  perl was the magic wand
+
+› you know this moto ?
+
+  write once, run   everywhere
+
+› dark ages: realm of OO
+
+  write once, run │ everywhere
+                  │ away 
+
+› dark ages: realm of OO
+
+  javaschools, javacards,
+  web applets, ...
+
+› perl died in dark ages
+
+  when beloved technologies were
+  windows, xml, php, java, ...
+
+› perl died in dark ages
+
+  when beloved technologies were
+  windows, xml, php, java, ...
+
+  when open source was the cancer
+
+› perl died in dark ages
+
+  when beloved technologies were
+  windows, xml, php, java, ...
+
+  when open source was the cancer
+
+  unix was for geeks,
+  functional programming for nuts.
+
+› unreadable perl ?
+
+  did you read some 20 old python/js code?
+
+› unreadable perl ?
+
+  did you read some 20 old python/js code?
+  you probably don't want to ...
+
+› unreadable perl ?
+
+  my @noc =
+    map {/c/ ? uc : ()}
+    @sentence;
+  ──────────────────────────────────────────
+  for my $word (@sentence) {
+    if ($word =~ /t/ ) {
+      push @nox, uc $word
+    }
+  }
+
+› on the other hand ...
+
+  def ban(word='f***'):
+
+  ──────────────────────────────────────────
+
+  sub ban (;$) {
+    my $word = @_ ? shift : 'f****'
+
+› not difficult
+
+  but weird and unconfortable
+
+› not difficult
+
+  but weird and unconfortable
+  who wants to use it ?
+
+› Function::Parameters is awesome
+
+  you don't know CPAN, do you ?
+
+› Function::Parameters is awesome
+
+  how about feature qw< :signatures > ?
+
+› back to the future
+
+   unix systems became
+    the system of choice for developers
+   functional programming became
+    "the good parts"
+
+› javascript
+
+    for (x in xs)
+      if ( x < 42 )
+        ys.push( x + 3 )
+
+    ys =
+      xs.
+      filter ( x => x < 42 ).
+      map( x => x + 3 )
+
+› javascript
+
+                       "use strict"
+                       let
+                       (x) => x + x
+                       (x) => {return x + x}
+                       # Observable
+
+› javascript
+
+  use strict;        │ "use strict"
+  my                 │ let
+  sub ($x) {$x + $x} │ (x) => x + x
+                     │ (x) => {return x + x}
+  tie                │ # Observable
+
+› spread operator (...)
+
+  let uA = {'name' : 'tpc'}
+  let uB =
+      { 'city'   : 'glasgow'
+      , 'hashtag': 'TEPC18'  }
+  let uC = {'hashtag': 'TPCiG'  }
+  let uD =
+      { ...uA
+      , ...uB
+      , ...uC }
+  console.log(uD)
+
+› spread operator: flatten
+
+  my %uA = qw( name tpc );
+  my %uB = qw(
+      hashtag TEPC18
+      city glasgow
+  );
+  my %uC = qw( hashtag TPCiG );
+  my %uD = ( %uA, %uB, %uC, %uD );
+
+› drafts
+
+  pipe operator
+
+› pipe operator draft ?
+
+  increment(
+    increment(
+        double(
+            double(
+                triple(
+                    triple(5))))))
+
+› pipe operator draft ?
+
+                 js pipeline
+
+                 5
+                 |> increment
+                 |> increment
+                 |> double
+                 |> double
+                 |> triple
+                 |> triple
+
+› pipe operator draft ?
+
+  perl5        ┃ js pipeline
+               ┃
+  increment    ┃ 5
+  increment    ┃ |> increment
+  double       ┃ |> increment
+  double       ┃ |> double
+  triple       ┃ |> double
+  triple       ┃ |> triple
+  5            ┃ |> triple
+
+› parentheses in perl
+
+  say((uc $x), $y)
+  say +(uc $x), $y
+  (say +(uc $x), $y)
+
+› how python evolved ?
+
+  PEP 202: list comprehension
+
+
+  PEP 448: Additional Unpacking Generalizations
+
+
+  PEP 498: Literal String Interpolation
+
+
+  PEP 572: Assignment Expressions
+
+› how python evolved ?
+
+  PEP 202: list comprehension
+     grep, map (without $_) 
+
+  PEP 448: Additional Unpacking Generalizations
+     we call it flatten 
+
+  PEP 498: Literal String Interpolation
+     default perl behavior 
+
+  PEP 572: Assignment Expressions
+     default perl behavior 
+
+› how python evolved ?
+
+  Michael Kennedy - Pythonic code by exemple
+
+› how python evolved ?
+
+                    Pythonic code
+
+› how python evolved ?
+
+                    Pythonic code looks
+                    like Perl without steroids
+                    (at least for me)
+
+› how python evolved ?
+
+                      some don't like steroids
+› message for python dev.
+
+  stop writting python2 code NOW!
+
+› also
+
+  java, C++,
+  elm, moonscript, livescript,
+  haskell,
+  scala, clojure ...
+
+› also
+
+  scheme is back in town
+  (clojure, guile, racket, ...)
+
+› thank you!
+
+  you made my life better
+  ──────────────────────────────
+  removing useless parentheses
+  flatten structures
+  ...
+
+› expectations
+
+  became closer and closer
+
+› expectations
+
+  easier to understand
+
+› perl
+
+  easier to explain
+
+› fear
+
+  fear implicity       
+  fear anonymous blocks
+  fear flatten/variadic
+  fear interpolation   
+
+› fear
+
+  fear implicity           no more
+  fear anonymous blocks    no more
+  fear flatten/variadic    no more
+  fear interpolation       no more
+
+› fear
+
+  fear implicity           no more
+  fear anonymous blocks    no more
+  fear flatten/variadic    no more
+  fear interpolation       no more
+  fear perl                no more
+
+› come on people!
+
+  can't wait for your langage
+  to implement yet another 
+  feature perl already had
+  (some since the last millenium )
+
+› come on people!
+
+  ...    //=       $_   ARGV  <>
+
+  sigils!
+  ──────────────────────────────
+  @h{...} %h{...} $h{...}
+  $foo->$bar
+
+› come on people!
+
+  metacpan
+  cpan tooling
+  community
+  ...
+
+› how perl evolved ?
+
+  fast since 5.10
+  without breaking retrocompatibility
+
+› how perl evolved ?
+
+
+  without breaking retrocompatibility
+  (with a lot of pragma)
+
+› how perl evolved ?
+
+  smartmatch: ~~, given/when, ...
+  experimental signatures,
+  regex improvements
+  faster, more secure,
+  better error message,
+  pluggable keywords
+
+› how perl evolved ?
+
+  not that much at the first look 😭
+
+› most people
+
+  think that perl 5.x remains the same
+
+› most people
+
+  think that perl 5.x remains the same
+  (no signature)
+
+› most people
+
+  think that perl 5.x remains the same
+  (no signature)
+  (no object keywording)
+
+› most people
+
+  don't go shopping on pypi or npm
+  to improve the langage
+
+› most people
+
+  won't go shopping on CPAN
+
+› they will
+
+  miss the perl bigger improvements because
+    "Perl is the VM, CPAN is the langage"
+
+› they want
+
+   great OO features
+   signature system
+   great unicode support
+   ...
+
+› which we have
+
+› which we have
+
+    use strict;
+    use warnings;
+    use feature
+      qw< unicode_strings say state >;
+    use English qw< -no_match_vars >;
+    use utf8::all;
+    use Function::Parameters;
+    use Moo;
+    use MooX::LvalueAttribute;
+    use Path::Tiny;
+    use Perlude;
+    use autodie;
+
+› Boilerplate
+
+  12 lines!
+  to get nothing done ...
+
+› Boilerplate
+
+  12 lines that
+  are impossible to guess
+  without knowing perl
+
+› Boilerplate
+
+  12 lines that
+  made you stackoverflow unusable
+
+› Boilerplate
+
+  12 lines that
+  scares the newbies
+  but make perl enjoyable
+
+› moar perl5 improvement
+
+  perl5i
+  common::sense
+  Modern::Perl
+  Sympatic
+
+› Sympatic
+
+    package Counter;
+    use Sympatic;
+    use Types::Standard qw< Int >;
+
+    has qw< value is rw lvalue . >
+    , isa     => Int
+    , default => 0;
+
+    method next ()      { ++$self->value       }
+    method ( Int $add ) { $self->value += $add }
+
+› Sympatic
+
+  the standard perl of the sympa project
+
+  to be easier to │ learn
+                  │ read
+                  │ write
+
+           reduce │ infrastrure code
+                  │ useless bugs
+
+
+› Sympatic
+
+   Available on CPAN
+   Documentation as an entry point to
+     perl
+     our guidelines
+
+› Sympatic
+
+  perl6
+  my recommended way to start perl
+
+› Sympatic
+
+  Sympatic
+  my recommended way to start perl5
+
+› what about perl ?
+
+  should we have a │ standard boilerplate?
+
+›
+
+  should we have a │ standard  boilerplate?
+                   │ official
+                   │ recommended
+
+
+› talking about perl
+
+› talking about perl
+
+  run/join local technical meetups
+
+› talking about perl
+
+  run/join local technical meetups
+   code instead of talk
+   social part
+
+› talking about perl
+
+  meet communities who want to
+  get things done
+
+› talking about perl
+
+  RMLL
+    Rencontres mondiales du
+    Logiciel libre
+
+  Fosdem
+    Free and OpenSource
+    Developers European Meeting
+
+› don't feel the troll
+
+  don't talk about perl
+
+› don't feel the troll
+
+  encourage everyone to
+  use the best of their langages
+
+  emphasize the "new features"
+
+› don't feel the troll
+
+  learn their langages
+   most of them are subsets of perl
+    (easy to learn)
+   you can see cool features
+    (scheme, haskell, ...)
+
+› don't feel the troll
+
+  level up expectations about a langage
+  is the best perl promotion
+
+› extra time ?
+
+  let's talk!
+
+

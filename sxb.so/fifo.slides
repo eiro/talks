@@ -1,0 +1,191 @@
+
+  vim: ft=slides et ts=2 sts=2 sw=2
+
+› pasture in bubble
+
+  seq 0 10 | xargs echo
+
+  seq 0 50 | xargs -n5 echo
+
+  print -aC5 {0..50}
+
+  seq 0 50 | xargs -n5 echo |
+      awk '{print $1 }'
+
+  seq 0 50 |
+      xargs -n5 echo |
+      awk '{print $1 | "xargs -n3 echo" }'
+
+  export batch="this time:"
+  seq 0 50 |
+      xargs -n5 echo |
+      awk '{print $1 | "xargs -n3 echo $batch" }'
+
+› avant j'attendais les réponses
+
+  for name ( **(.) ) {
+      ls -s $name | read size _
+      print -- "$size\t$name\t$( file --mime-type -b $name)"
+  }
+
+› mais ça, c'était avant ...
+
+  1247,16s user 888,15s system 97% cpu 36:21,65 total
+
+› mais ....
+
+  grace à un script en python ...
+
+› mais ....
+
+  non ... je déconne!
+
+› find
+
+  ┌─────┐┌─────┐   find .  -type f -not -name '.*' \
+  │paste││size │       -printf "%s\t%P\n"
+  │     │└─────┘   
+  │     │┌─────┐   
+  │     ││name │   
+  │     │└─────┘   
+  │     │
+  │     │
+  └─────┘
+
+› paste
+
+  paste <( echo "name\tsize" ) <( echo "mime" )
+
+  ┌─────┐┌─────┐
+  │size ││paste│
+  └─────┘│     │
+  ┌─────┐│     │
+  │name ││     │
+  └─────┘│     │
+  ┌─────┐│     │
+  │mime ││     │
+  └─────┘└─────┘
+
+› missing part ?
+
+
+  ┌─────┐┌─────┐                           ┌─────┐┌─────┐
+  │paste││size │                           │size ││paste│
+  │     │└─────┘                           └─────┘│     │
+  │     │┌─────┐                           ┌─────┐│     │
+  │     ││name │                           │name ││     │
+  │     │└─────┘                           └─────┘│     │
+  │     │                                  ┌─────┐│     │
+  │     │                                  │mime ││     │
+  └─────┘                                  └─────┘└─────┘
+
+› missing part ?
+
+                      awk
+  ┌─────┐┌─────┐     ┌─────┐               ┌─────┐┌─────┐
+  │find ││size │────>│ $1  │──────────────>│paste││size │
+  │     │└─────┘     │     │               │     │└─────┘
+  │     │┌─────┐     │ $2  │               │     │┌─────┐
+  │     ││name │────>│     │─┬────────────>│     ││name │
+  │     │└─────┘     └─────┘ │             │     │└─────┘
+  │     │                    │  ┌─────┐    │     │┌─────┐
+  │     │                    └─>│file │───>│     ││mime │
+  └─────┘                       └─────┘    └─────┘└─────┘
+
+
+› donc ...
+
+  local {batchsize,mimecommand,sn,t,stats}=
+  local store=$( mktemp -d /tmp/filestats.$(date +%F ).XXXXXX )
+  batchsize=400 # if a deadlock occurs, reduce this value
+  local mimecommand=( file --mime-type -b )
+  export mimecommand
+  print $store/{size-name,type,stats} |
+      read sn t stats
+  export store sn t stats batchsize
+  mkfifo $sn $t
+  paste  $sn $t > $stats &
+  find . \
+      -type f -not -name '.*' \
+      -printf "%s\t%P\n" |
+  awk -vsize=1 -vname=$2 vsn=$sn -vIFS="\t" -vOFS="\t" '
+      { print $size,$name > sn
+        print $name | "exec xargs -n$batchsize $mimecommand > $t"
+      }
+  '
+
+› conclusion
+
+  0,15s    user 0,20s   system 0%  cpu 1:01,26  total
+
+  # un gros bug: \t n'est pas autorisé dans les noms de fichiers
+  # worse is better!
+
+  # une grosse incertitude: $batchsize
+  # first, make it work :)
+
+› merci
+
+› merci
+
+euler
+
+ok
+
+range () {
+  local -i from=0 to step=1
+  local k v
+  for k v ( $@ ) case $k { 
+    (from|to) print -v $k $v ;;
+    (*)
+      warn "$k isn't a valid key"
+      return ;;
+  }
+  # : ${to?the upper boundary of the range must be set}
+  for (( ; from <= to ; from+=step )) print $from
+}
+range z 3 to 42
+
+
+() { local -i x=0; repeat 5 {  print $x; let x+=3 } }
+
+(( x;; ))
+
+local -i x y
+
+local -i y=0 x=y+1
+print $x
+
+let y=0 x+=2
+print ${(t)y}
+
+test -d
+
+range from 0 to 10 step 2
+
+sum () {
+  local -i sum el;
+  while {read el} ((sum+=el))
+  print $sum
+}
+
+seq 5 | sum
+
+awk '{sum+=$1} END {print sum}'
+
+
+remove-every ()
+    sed $1\~$1\d
+
+{ seq 3 3 999
+  seq 5 5 999 | remove-every 3
+} | sum
+
+{ seq 0 5 999; seq 0 3 999 } | awk '
+        { seen[$1]=1 }
+        END {
+            for (s in seen) sum+=s
+            print sum
+        }
+    '
+
