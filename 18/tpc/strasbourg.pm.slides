@@ -1,0 +1,319 @@
+so %:r.vim before starting
+vim: et ts=2 sts=2 sw=2
+
+› first
+
+  thanks everyone ...
+
+› Dear ovid ...
+
+    use strict;
+    use warnings;
+    use feature
+      qw< unicode_strings say state >;
+    use English qw< -no_match_vars >;
+    use Function::Parameters;
+    use Moo;
+    use MooX::LvalueAttribute;
+    use Path::Tiny;
+
+› Dear ovid ...
+
+  use Sympatic;
+
+› Dear ovid ...
+
+    package Counter;
+    use Sympatic;
+    use Types::Standard qw< Int >;
+
+    has qw< value is rw lvalue . >
+    , isa     => Int
+    , default => 0;
+
+    method next ()      { ++$self->value       }
+    method ( Int $add ) { $self->value += $add }
+
+›
+
+    Marc Chantreux
+    Strasbourg.pm
+
+›
+     Y et
+›
+     Y et
+     A nother
+›
+     Y et
+     A nother
+     A wesome
+›
+     Y et
+     A nother
+     A wesome
+     A musing
+›
+     Y et
+     A nother
+     A wesome
+     A musing
+     A ppealing
+›
+     Y et
+     A nother
+     A wesome
+     A musing
+     A ppealing
+     A stonishing
+›
+     Y et
+     A nother
+     A wesome
+     A musing
+     A ppealing
+     A stonishing
+     L angage
+›
+     Y et
+     A nother
+     A wesome
+     A musing
+     A ppealing
+     A stonishing
+     L angage
+  to D ive
+     I n
+› Perl
+     Y et
+     A nother
+     A wesome
+     A musing
+     A ppealing
+     A stonishing
+     L angage
+  to D ive
+     I n
+› History
+
+
+›
+            █│ Java age ....
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+›
+            █│ Java age ....
+            █│
+     12 BC  ▷│ Argentoratum
+            █│   Roman military outpost
+            █│   established by
+            █│   Nero Claudius Drusus
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+›
+            █│ Java age ....
+            █│
+     12 BC  █│ Argentoratum
+            █│   Roman military outpost
+            █│   established by
+            █│   Nero Claudius Drusus
+            █│
+   2012 BC  ▷│ French Perl Worshop Strasbourg
+            █│   Birth of Strasbourg.pm
+            █│   Fall  of Strasbourg.pm
+            █│
+
+›
+   2012 BC  █│ French Perl Worshop Strasbourg
+            █│   Birth of Strasbourg.pm
+            █│   Fall  of Strasbourg.pm
+            █│
+   2014 BC  ▷│ Basement hackathon
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+
+›
+   2012 BC  █│ French Perl Worshop Strasbourg
+            █│   Birth of Strasbourg.pm
+            █│   Fall  of Strasbourg.pm
+            █│
+   2014 BC  █│ Basement hackathon
+            █│
+            █│
+   2015 BC  ▷│ sxb.so
+            █│ Strasbourg shared objects
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+
+›
+   2014 BC  █│ Basement hackathon
+            █│
+            █│
+   2015 BC  █│ sxb.so
+            █│ Strasbourg shared objects
+            █│
+            █│
+   2018     ▷│ 3 years of
+            █│ almost non-stop weekly events
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+            █│
+
+›
+            █│
+            █│
+   2018     █│ 3 years of
+            █│ almost non-stop weekly events
+            █│
+   Future   ?│
+             │
+             │
+             │
+             │
+             │
+
+› Lessons learned
+
+  « do it or don't, there is no try »
+    - Yoda
+
+› Lessons learned
+
+  focus on what you can    do
+       not what you should do
+
+› Lessons learned
+
+  do them because you want to
+
+› Lessons learned
+
+  be happy/proud about little steps
+
+› Lessons learned
+
+     find 1 mate and have fun
+› Lessons learned
+
+     find 1 mate and have fun
+     pick a regular place and schedule
+› Lessons learned
+
+     find 1 mate and have fun
+     pick a regular place and schedule
+     finish with beer and food
+› Lessons learned
+
+     be welcoming
+     be open to new ideas
+     grow slowly
+
+› Lessons learned
+
+     from peer │ to │ peer
+           time │    │ time
+     respect the core
+
+› Lessons learned
+
+  tips or GTFO!
+  │ fun, inclusive ritual
+  │ no more need to prepare slides
+
+› tips or GTFO!
+
+     even the newbies can show you something
+     lot of interesting discutions
+
+› future ?
+
+  keep going on having fun together
+
+› future ?
+
+  monthly social event (with lighning talks)?
+  syop related event
+
+› future ?
+
+  KarlMagnus Perl Worshop
+  (with Frankfurt.pm)
+
+› future ?
+
+    kittens to kill google
+
+›
+
+    De-google-ify Internet
+    https://degooglisons-internet.org/en/
+
+› Future
+
+    kittens = CHATONS
+
+› CHATONS
+
+    Collectif des
+    Hébergeurs
+    Alternatifs,
+    Transparents,
+    Ouverts,
+    Neutres et
+    Solidaires
+
+› CHATONS
+
+    Association of
+    Alternative
+    Neutral
+    Transparent
+    Open
+    Solidariy based
+    Internet providers
+
+› Future
+
+     Chatons perl training
+     Remote conferences/workshop
+     coding week-ends with other .pm?
+
